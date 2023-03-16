@@ -1,12 +1,15 @@
 # Código que genera una GUI para ingresar datos en un archivo de Excel EXISTENTE.
 
 import PySimpleGUI as sg
-import mysql
-from mysql import connector
-from mysql.connector import Error
+import App_Lolo_SQL
 
-#-----------------------------Trabajo con la GUI-------------------------------------------------------------------------
+connection = App_Lolo_SQL.connection
+create_users = App_Lolo_SQL.create_users
+execute_query = App_Lolo_SQL.execute_query
 
+#-----------------------------Creación de la GUI-------------------------------------------------------------------------
+
+#-------Carga de pacientes
 formatos={'Letra':'Italic','Tamaño título':14,'Tamaño bloques':12}
 
 pacientes_col= [[sg.Text('Datos de Contacto:', size=(15,1),font=(formatos['Letra'],formatos['Tamaño título']))],
@@ -25,8 +28,8 @@ OS_Prepaga_col= [
 
 Cobro_col=[
     [sg.Text('Cobranza:', size=(10,1),font=(formatos['Letra'],formatos['Tamaño título']))],
-    [sg.Text('Costo', size=(10,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(pad=(21,1),size=(15,1),default_text='$',key='-Costo-')], #Esto va en otra columna
-    [sg.Text('Presupuesto', size=(10,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(pad=(21,1),size=(15,1),default_text='$',key='-Presupuesto-')], #Esto va en otra columna
+    [sg.Text('Costo', size=(10,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(pad=(21,1),size=(15,1),key='-Costo-')], #Esto va en otra columna
+    [sg.Text('Presupuesto', size=(10,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(pad=(21,1),size=(15,1),key='-Presupuesto-')], #Esto va en otra columna
     [sg.Text('Forma de Pago', size=(12,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(pad=(1,1),size=(15,1),key='-Pago-')],
     [sg.Text('Notas', size=(5,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.Multiline(pad=(70.5,1),size=(30,5),key='-Notas-')] #Esto va en otra columna
     ]
@@ -43,48 +46,13 @@ layout_pacientes = [
 
 window_pacientes = sg.Window('Odonto', layout=layout_pacientes)
 
-#-----------------------------Trabajo con la Base de Datos-------------------------------------------------------------------------
-
-def create_connection(host_name, user_name, user_password, db_name):
-    connection = None
-    try:
-        connection = mysql.connector.connect(
-            host=host_name,
-            user=user_name,
-            passwd=user_password,
-            database= db_name
-        )
-        print("Connection to MySQL DB successful")
-    except Error as e:
-        print(f"The error '{e}' occurred")
-
-    return connection
-
-connection = create_connection("localhost", "root", "","app_odonto") #Llama a la función creada.
-
-def execute_query(connection, query):
-    cursor = connection.cursor()
-    try:
-        cursor.execute(query)
-        connection.commit()
-        print("Query executed successfully")
-    except Error as e:
-        print(f"The error '{e}' occurred")
-
-
-def create_users(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas):
-    cursor = connection.cursor()
-    cursor.execute(
-    "INSERT INTO pacientes (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia_clínica,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-    (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas))
-
-
-#execute_query(connection, create_table)
 
 #------------------------------------Bucle de eventos---------------------------------------------------------------
 
-"""Para cargar los datos, hay que matchear el formato de INSERT de SQL con el código. Podría ser con un diccionario que se va llenando según los input.
-    O buscar alguna función directa entre PySimpleGUI con SQL"""
+"""El código para consultar debería ser un SELECT de la DB y que reemplace o haga un update al Texto de un ELEMENTO.
+   Después del SELECT, un WHERE para cada nombre de campo o columna (o revisar fotos requerimientos).
+   Revisar en internet como hacer ese filtro de WHERE, podría ser similar al 'VALUES %s'.
+   Podría ser en otro módulo."""
 
 def clear_input():
     for key in values:
@@ -92,7 +60,7 @@ def clear_input():
     return None
 
 while True:
-    event, values = window_pacientes.read() # Toma los 'event' y 'values' de la 'window' (según los parámetros de la función). En este caso son los event y values del 'layout' creado.
+    event, values = window_pacientes.read() # Toma los 'event' y 'values' de la 'window' (según los parámetros de la función "read()"). En este caso son los event y values del 'layout' creado.
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
     if event == 'Limpiar':
