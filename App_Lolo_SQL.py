@@ -65,42 +65,95 @@ DROP TABLE users;
 def create_users(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas):
     cursor = connection.cursor()
     cursor.execute(
-    "INSERT INTO pacientes (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia_clínica,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
+    "INSERT INTO pacientes (Nombre,DNI,Tel,Mail,Historia_clínica,Obra_Social_Prepaga,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
     (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas))
 
 """#(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia_clínica,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
         #(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas))"""
 
 
-def query_pacientes(event):
+def query_pacientes_dni(): # Trae los DNI de los pacientes.
     cursor = connection.cursor(buffered=True)
     cursor.execute("SELECT DNI FROM pacientes")
     resultado = cursor.fetchall()
-    resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves.
+    resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves. Al especificar el índice, los trae como string.
 
     return resultado_limpio
 
-def query_users(event,value):
+def query_pacientes_nombre(): # Trae los Nombres de los pacientes.
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Nombre, Tel, Mail FROM pacientes WHERE DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+    cursor.execute("SELECT Nombre FROM pacientes")
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves. Al especificar el índice, los trae como string.
+
+    return resultado_limpio
+
+def query_info(event,value): # Trae el nombre, teléfono y mail de los pacientes.
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Nombre, Tel, Mail FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
     result = cursor.fetchall()
 
     for row in result:
         consulta=row
  
-    return consulta[0]+', '+str(consulta[1])+', '+consulta[2]
+    return consulta[0]+', '+str(consulta[1])+', '+consulta[2] 
+#Acá probrar excepción de errores.
 
-def query_costo(event,value):
+def query_historia(event,value): # Trae la hsitoria clínica de los pacientes.
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Costo FROM pacientes WHERE DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+    cursor.execute(f"SELECT Historia_clínica FROM pacientes WHERE Nombre = {value} or DNI = {value} ") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+
+    result = cursor.fetchall()
+
+    for row in result:
+        consulta=row
+ 
+    return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
+
+""" 
+def query_deuda(event,value):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Historia_clínica FROM pacientes WHERE DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+
+    result = cursor.fetchall()
+
+    for row in result:
+        consulta=row
+ 
+    return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
+""" # Falta generar el valor de la deuda del paciente, tomando algún valor que haya pagado y restándoselo al presupuesto.
+
+def query_costo(event,value): # Trae el costo de los pacientes.
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Costo FROM pacientes WHERE Nombre = {value} or DNI = {value} ") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
     result = cursor.fetchall()
     
     for row in result:
         consulta=row
         #resultado_limpio=[x[0] for x in consulta]    
-    return consulta[0]
+    return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
 
+def query_presupuesto(event,value): # Trae el presupuesto de los pacientes.
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Presupuesto FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+
+    result = cursor.fetchall()
+
+    for row in result:
+        consulta=row
  
+    return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
+ 
+def query_forma_de_pago(event,value): # Trae la forma de pago de los pacientes.
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Tipo_de_Pago FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+
+    result = cursor.fetchall()
+
+    for row in result:
+        consulta=row
+ 
+    return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string. 
 #execute_query(connection, create_table)
