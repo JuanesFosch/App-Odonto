@@ -1,8 +1,12 @@
+# Código que interactúa con el gestor de bases de datos MySQL. Para crear y/o modificar conexiones, bases de datos, tablas, registros. 
+# También tiene las consultas para mostar en las GUI.
+
+
 import mysql
 from mysql import connector
 from mysql.connector import Error
 
-a='b'
+
 
 def create_connection(host_name, user_name, user_password, db_name):
     connection = None
@@ -32,7 +36,7 @@ connection = create_connection("localhost", "root", "","app_odonto") #Llama a la
 create_database_query = "CREATE DATABASE App_Odonto"
 create_database(connection, create_database_query) #Llama a la función creada."""
 
-def execute_query(connection, query):
+def execute_query(connection, query): # Ejecuta alguna consulta, activando la conexión y tomando la consulta a ejecutar.
     cursor = connection.cursor()
     try:
         cursor.execute(query)
@@ -40,44 +44,70 @@ def execute_query(connection, query):
         print("Query executed successfully")
     except Error as e:
         print(f"The error '{e}' occurred")
+        pass
 
 create_table = """    
-CREATE TABLE IF NOT EXISTS Pacientes (
-  Id INT AUTO_INCREMENT, 
-  Nombre TEXT NOT NULL, 
-  DNI INT, 
-  Obra_Social_Prepaga TEXT, 
-  Tel INT, 
-  Mail TEXT,
-  Historia_clínica TEXT,
-  Código INT,
-  Costo INT,
-  Presupuesto INT,
-  Tipo_de_Pago TEXT,
-  Notas TEXT,
+CREATE TABLE IF NOT EXISTS presupuestos (
+  Id INT AUTO_INCREMENT,
+  DNI INT,
+  Nombre TEXT, 
+  Tratamiento TEXT NOT NULL, 
+  Precio INT, 
+  Forma_de_Pago INT, 
+  Cuotas TEXT,
   PRIMARY KEY (id)
 ) """
 # Está bien que se usen las comillas, aunque parezca anulado.
+
 delete_table= """
-DROP TABLE users;
+DROP TABLE pacientes;
 """
 
-def create_users(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas):
+def create_users(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código):
     cursor = connection.cursor()
     cursor.execute(
-    "INSERT INTO pacientes (Nombre,DNI,Tel,Mail,Historia_clínica,Obra_Social_Prepaga,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-    (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas))
+    "INSERT INTO pacientes (Nombre,DNI,Tel,Mail,Historia_clínica,Obra_Social_Prepaga,Código) VALUES (%s,%s,%s,%s,%s,%s,%s);",
+    (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código))
 
-"""#(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia_clínica,Código,Costo,Presupuesto,Tipo_de_Pago,Notas) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-        #(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código,Costo,Presupuesto,Pago,Notas))"""
-
+#,Costo,Presupuesto,Tipo_de_Pago,Notas
 
 def query_pacientes_dni(): # Trae los DNI de los pacientes.
     cursor = connection.cursor(buffered=True)
     cursor.execute("SELECT DNI FROM pacientes")
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves. Al especificar el índice, los trae como string.
+    
+    return resultado_limpio
 
+def query_id(valor):
+ 
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Id FROM pacientes WHERE DNI = {valor} or Nombre = {valor} ;" )
+    #cursor.execute(sql,{'DNI': DNI})
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+    
+def query_nombre_id(id):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Nombre FROM pacientes WHERE Id = {id};" )
+    #cursor.execute(sql,{'DNI': DNI})
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+
+def query_dni_id(id):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT DNI FROM pacientes WHERE Id = {id};" )
+    #cursor.execute(sql,{'DNI': DNI})
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
     return resultado_limpio
 
 def query_pacientes_nombre(): # Trae los Nombres de los pacientes.
@@ -85,7 +115,7 @@ def query_pacientes_nombre(): # Trae los Nombres de los pacientes.
     cursor.execute("SELECT Nombre FROM pacientes")
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves. Al especificar el índice, los trae como string.
-
+   
     return resultado_limpio
 
 def query_info(event,value): # Trae el nombre, teléfono y mail de los pacientes.
@@ -156,4 +186,5 @@ def query_forma_de_pago(event,value): # Trae la forma de pago de los pacientes.
         consulta=row
  
     return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string. 
+
 #execute_query(connection, create_table)
