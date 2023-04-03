@@ -6,7 +6,7 @@ import mysql
 from mysql import connector
 from mysql.connector import Error
 
-
+#-------------------Creación de la conexión y ejecución de consultas------------------
 
 def create_connection(host_name, user_name, user_password, db_name):
     connection = None
@@ -36,7 +36,7 @@ connection = create_connection("localhost", "root", "","app_odonto") #Llama a la
 create_database_query = "CREATE DATABASE App_Odonto"
 create_database(connection, create_database_query) #Llama a la función creada."""
 
-def execute_query(connection, query): # Ejecuta alguna consulta, activando la conexión y tomando la consulta a ejecutar.
+def execute_query(connection, query):       # Ejecuta alguna consulta, activando la conexión y tomando la consulta a ejecutar.
     cursor = connection.cursor()
     try:
         cursor.execute(query)
@@ -63,13 +63,17 @@ delete_table= """
 DROP TABLE pacientes;
 """
 
-def create_users(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código):
+#-------------------Carga de nuevos pacientes------------------
+
+def crear_pacientes(Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código):
     cursor = connection.cursor()
     cursor.execute(
     "INSERT INTO pacientes (Nombre,DNI,Tel,Mail,Historia_clínica,Obra_Social_Prepaga,Código) VALUES (%s,%s,%s,%s,%s,%s,%s);",
     (Nombre,DNI,Obra_Social_Prepaga,Tel,Mail,Historia,Código))
 
 #,Costo,Presupuesto,Tipo_de_Pago,Notas
+
+#-------------------Consulta de la situación de los pacientes------------------
 
 def query_pacientes_dni(): # Trae los DNI de los pacientes.
     cursor = connection.cursor(buffered=True)
@@ -107,10 +111,10 @@ def query_dni_id(id):
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado]
     #print(resultado)
-    #print(resultado_limpio)
+    print(resultado_limpio)
     return resultado_limpio
 
-def query_pacientes_nombre(): # Trae los Nombres de los pacientes.
+def query_pacientes_nombre():       # Trae los Nombres de los pacientes.
     cursor = connection.cursor(buffered=True)
     cursor.execute("SELECT Nombre FROM pacientes")
     resultado = cursor.fetchall()
@@ -118,7 +122,7 @@ def query_pacientes_nombre(): # Trae los Nombres de los pacientes.
    
     return resultado_limpio
 
-def query_info(event,value): # Trae el nombre, teléfono y mail de los pacientes.
+def query_info(event,value):        # Trae el nombre, teléfono y mail de los pacientes.
     cursor = connection.cursor(buffered=True)
     cursor.execute(f"SELECT Nombre, Tel, Mail FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
@@ -128,7 +132,7 @@ def query_info(event,value): # Trae el nombre, teléfono y mail de los pacientes
         consulta=row
  
     return consulta[0]+', '+str(consulta[1])+', '+consulta[2] 
-#Acá probrar excepción de errores.
+#Acá probar excepción de errores.
 
 def query_historia(event,value): # Trae la hsitoria clínica de los pacientes.
     cursor = connection.cursor(buffered=True)
@@ -154,9 +158,11 @@ def query_deuda(event,value):
     return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
 """ # Falta generar el valor de la deuda del paciente, tomando algún valor que haya pagado y restándoselo al presupuesto.
 
+
+
 def query_costo(event,value): # Trae el costo de los pacientes.
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Costo FROM pacientes WHERE Nombre = {value} or DNI = {value} ") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+    cursor.execute(f"SELECT Costo FROM presupuestos WHERE Nombre = {value} or DNI = {value} ") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
     result = cursor.fetchall()
     
@@ -167,7 +173,7 @@ def query_costo(event,value): # Trae el costo de los pacientes.
 
 def query_presupuesto(event,value): # Trae el presupuesto de los pacientes.
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Presupuesto FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+    cursor.execute(f"SELECT Precio FROM presupuestos WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
     result = cursor.fetchall()
 
@@ -178,7 +184,7 @@ def query_presupuesto(event,value): # Trae el presupuesto de los pacientes.
  
 def query_forma_de_pago(event,value): # Trae la forma de pago de los pacientes.
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Tipo_de_Pago FROM pacientes WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
+    cursor.execute(f"SELECT Forma_de_Pago FROM presupuestos WHERE Nombre = {value} or DNI = {value}") # El 'value'lo toma de la lista desplegable modificada con los DNI.
 
     result = cursor.fetchall()
 
@@ -186,5 +192,69 @@ def query_forma_de_pago(event,value): # Trae la forma de pago de los pacientes.
         consulta=row
  
     return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string. 
+
+
+#-------------------Carga de presupuesto------------------
+
+def crear_presupuesto(DNI,Nombre,Tratamiento,Fecha,Precio,Forma_de_Pago,Cuotas):
+    cursor = connection.cursor()
+    cursor.execute(
+    "INSERT INTO presupuestos (DNI,Nombre,Tratamiento,Fecha,Precio,Forma_de_Pago,Cuotas) VALUES (%s,%s,%s,%s,%s,%s,%s);",
+    (DNI,Nombre,Tratamiento,Fecha,Precio,Forma_de_Pago,Cuotas))
+
+
+#-------------------Carga de cobranza------------------
+
+def query_tratamiento(id):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Tratamiento FROM presupuestos WHERE Id = {id};" )
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+
+def query_presupuesto(id):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Precio FROM presupuestos WHERE Id = {id};" )
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+
+def query_id_cobranzas(valor):
+ 
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Id FROM pacientes WHERE DNI = {valor} or Nombre = {valor} ;" )
+    #cursor.execute(sql,{'DNI': DNI})
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+
+def query_deuda(id):
+    cursor = connection.cursor(buffered=True)
+    cursor.execute(f"SELECT Deuda FROM cobranzas WHERE Id = {id};" )
+    resultado = cursor.fetchall()
+    resultado_limpio=[x[0] for x in resultado]
+    #print(resultado)
+    #print(resultado_limpio)
+    return resultado_limpio
+
+def crear_cobro(DNI,Nombre,Fecha,Tratamiento,Presupuestado,Cobro,Forma_de_Pago):
+    cursor = connection.cursor()
+    cursor.execute(
+    "INSERT INTO cobranzas (DNI,Nombre,Fecha,Tratamiento,Presupuestado,Cuánto_pagó,Forma_de_Pago) VALUES (%s,%s,%s,%s,%s,%s,%s);",
+    (DNI,Nombre,Fecha,Tratamiento,Presupuestado,Cobro,Forma_de_Pago))
+
+
+#el dni, nombre, deuda y tratamiento se van a cargar desde el presupuesto. La tabla debería tener un campo 'Deuda', donde se cargue el valor
+#'Precio' del presupuesto. También un campo de 'Cobrado', con un valor por default de 'No' para poder cambiarlo cuando se cobre (con un UPDATE).
+# El campo de lo que se cobró tiene que ser con un signo negativo, para que se reste a la deuda, y así consultar bien.
+# EL cuadro de 'Cuanto pagó' tiene que insertar el valor en 'Cuanto pagó' y en 'Deuda' con un signo negativo adelante (en el SQL statement).
+# Después un condicional de si el campo 'Deuda' está en Cero, hacer un 'Update' al campo 'Cobrado' con "Sí".
+
 
 #execute_query(connection, create_table)

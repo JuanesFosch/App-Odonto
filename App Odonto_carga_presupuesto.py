@@ -10,9 +10,11 @@ connection = App_Lolo_SQL.connection            # Parámetros de conexión a la 
 execute_query = App_Lolo_SQL.execute_query      # Función para ejecutar alguna consulta SQL.
 query_nombre_id=App_Lolo_SQL.query_nombre_id    # Trae el nombre del paciente según el Id consultado.
 query_dni_id=App_Lolo_SQL.query_dni_id    # Trae el DNI del paciente según el Id consultado.
+crear_presupuesto= App_Lolo_SQL.crear_presupuesto    # Carga datos en la tabla de presupuestos.
+
 #-----------------------------Creación de la GUI-------------------------------------------------------------------------
 
-#-------Carga de pacientes
+#-------Carga de presupuestos
 formatos={'Letra':'Italic','Tamaño título':14,'Tamaño bloques':12}
 
 presupuestos_col= [
@@ -22,6 +24,7 @@ presupuestos_col= [
                 [sg.Combo(values=(query_pacientes_nombre()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-Lista NOM-')],  
                 [sg.Text('DNI', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(30),key='-DNI-')],
                 [sg.Text('Nombre', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(30),key='-Nombre-')],
+                [sg.Text('Fecha', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(15),key='-Fecha-')],
                 [sg.Text('Tratamiento', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(30),key='-TRA-')],
                 [sg.Text('Precio', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(10),key='-PRECIO-')],
                 [sg.Text('Forma de pago', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(10),key='-PAGO-')],
@@ -36,7 +39,7 @@ layout_carga_presupuesto = [
     [sg.Submit('Cargar'), sg.Button('Limpiar'), sg.Exit('Salir',key='-SALIR-')]
     ]
 
-window_presupuestos = sg.Window('Odonto', layout=layout_carga_presupuesto) 
+window_presupuestos = sg.Window('Odonto Presupuestos', layout=layout_carga_presupuesto) 
 
 #------------------------------------Bucle de eventos---------------------------------------------------------------
 def clear_input():
@@ -58,11 +61,15 @@ while True:
         dni_unico=(values['-Lista DNI-'])
         window_presupuestos['-DNI-'].update(dni_unico)
 
+        nombre_prolijo=(values['-Lista NOM-']) # Venía entre llaves.
+        nombre=f'"{nombre_prolijo}"' 
+
         new_dni = query_id(dni_unico) # Le pasa el valor del DNI a la función para que traiga el Id.    
 
         nombre_id= query_nombre_id(new_dni[0]) # Trae el nombre del paciente según el Id relacionado con el DNI.
         #print(nombre_id[0])
         # Actualización de los valores en los cuadros y listas.
+        #window_presupuestos['-Nombre-'].update(nombre_prolijo)
         window_presupuestos['-Nombre-'].update(nombre_id[0])
         window_presupuestos['-Lista DNI-'].update(dni_unico)    
         window_presupuestos['-Lista NOM-'].update(nombre_id[0])
@@ -80,9 +87,17 @@ while True:
         window_presupuestos['-Lista DNI-'].update(dni_id[0])
         window_presupuestos['-Lista NOM-'].update(nombre_prolijo)
 
+    if event == 'Cargar':
+        #(-------Carga en BD-------)
+        new_record = execute_query(connection, crear_presupuesto(values['-DNI-'],values['-Nombre-'],values['-TRA-'],values['-Fecha-'],values['-PRECIO-'],values['-PAGO-'],
+        values['-CUOTAS-'])) # Escribe datos nuevos.    
+        sg.popup('Datos guardados!')
+        clear_input()
+        window_presupuestos['-Lista DNI-'].update('Seleccionar')
+        window_presupuestos['-Lista NOM-'].update('Seleccionar')
     if event == 'Limpiar':
         clear_input()
         window_presupuestos['-Lista DNI-'].update('Seleccionar')
         window_presupuestos['-Lista NOM-'].update('Seleccionar')
-
+window_presupuestos.close()
 
