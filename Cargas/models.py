@@ -9,15 +9,15 @@ class Pacientes(models.Model):
     Teléfono = models.IntegerField()
     E_mail= models.CharField(max_length=40)
     Obra_Social_Prepaga= models.CharField(max_length=40)    # Esto se debería poder elegir de una lista.
+
     def __str__(self): 
         return self.Nombre + " - DNI: " + str(self.DNI)
 
     class Meta:
         verbose_name_plural= "Pacientes"
         ordering = ['Nombre']
+
         
-
-
 class Presupuestos(models.Model):
     #consultar Nombre
     Paciente_Dni= models.ForeignKey("Pacientes",on_delete=models.CASCADE)
@@ -30,11 +30,13 @@ class Presupuestos(models.Model):
     Monto = models.IntegerField(blank=True)
     #Forma de pago
     #Cuotas
-    def __str__(self): 
+
+    def __str__(self):
         return "Número de orden: " + str(self.Número_de_orden)
+
     class Meta:
         verbose_name_plural= "Presupuestos"
-        ordering = ['Número_de_orden'] 
+        ordering = ['Número_de_orden']     
 
 class Cobranzas(models.Model):
     pass
