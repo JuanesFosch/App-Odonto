@@ -50,6 +50,9 @@ class Cobranzas(models.Model):
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
     Cuánto_pagó = models.IntegerField(blank=True)
 
+    def __str__(self):
+        return "Número de comprobante: " + str(self.Número_de_comprobante)
+
     class Meta:
         verbose_name_plural= "Cobranzas"
         ordering = ['Número_de_comprobante']
