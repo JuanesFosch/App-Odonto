@@ -1,0 +1,7 @@
+Cargas/__pycache__/__init__.cpython-311.pyc
+
+*.txt
+*.pyc
+*.jpeg
+django*
+venv*

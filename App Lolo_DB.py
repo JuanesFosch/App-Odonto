@@ -1,19 +1,11 @@
-# Código que genera una GUI para ingresar datos en una base de datos y en un archivo de Excel existentes.
+# Código que genera una GUI para ingresar datos en un archivo de Excel EXISTENTE.
 
 import PySimpleGUI as sg
 import App_Lolo_SQL
 
-import pandas as pd
-
-
-
-connection = App_Lolo_SQL.connection # Crea la conexión a la base de datos.
-create_users = App_Lolo_SQL.create_users # Crea usuarios en la base de datos.
-execute_query = App_Lolo_SQL.execute_query # Ejecuta la query según un evento.
-
-
-EXCEL_FILE =r'C:\Users\juanf\Desktop\Otras Apps\App Lolo\Odonto.xlsx'
-df_pacientes=pd.read_excel(EXCEL_FILE,sheet_name='Hoja1')
+connection = App_Lolo_SQL.connection
+create_users = App_Lolo_SQL.create_users
+execute_query = App_Lolo_SQL.execute_query
 
 #-----------------------------Creación de la GUI-------------------------------------------------------------------------
 
@@ -32,7 +24,6 @@ OS_Prepaga_col= [
     [sg.Text('Obra Social/Prepaga:', size=(18,1),font=(formatos['Letra'],formatos['Tamaño título']))],
     [sg.Text('Obra Social/Prepaga', size=(18,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(15,1),key='-Obra Social/Prepaga-')], #Esto va en otra columna
     [sg.Text('Código de Prestación', size=(18,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(15,1),key='-Código-')], #Esto va en otra columna
-    [sg.Button('Ir a Consulta',enable_events=True,key='-CONS-',pad=(5,50))]
     ]
 
 Cobro_col=[
@@ -50,10 +41,10 @@ layout_pacientes = [
     sg.Column(OS_Prepaga_col,element_justification='l',vertical_alignment='t',grab=True),
     sg.VerticalSeparator(),
     sg.Column(Cobro_col,element_justification='l',vertical_alignment='t',grab=True)],
-    [sg.Submit('Cargar'), sg.Button('Limpiar'), sg.Exit('Salir',key='-SALIR-')]
+    [sg.Submit('Cargar'), sg.Button('Limpiar'), sg.Exit()]
     ]
 
-window_pacientes = sg.Window('Odonto', layout=layout_pacientes) 
+window_pacientes = sg.Window('Odonto', layout=layout_pacientes)
 
 
 #------------------------------------Bucle de eventos---------------------------------------------------------------
@@ -70,22 +61,14 @@ def clear_input():
 
 while True:
     event, values = window_pacientes.read() # Toma los 'event' y 'values' de la 'window' (según los parámetros de la función "read()"). En este caso son los event y values del 'layout' creado.
-    if event == sg.WIN_CLOSED or event == '-SALIR-':
+    if event == sg.WIN_CLOSED or event == 'Exit':
         break
     if event == 'Limpiar':
         clear_input()
     if event == 'Cargar':
-        #(-------Carga en BD-------)
         new_record = execute_query(connection, create_users(values['-Nombre-'],values['-DNI-'],values['-Tel-'],values['-Mail-'],values['-Historia-'],
         values['-Obra Social/Prepaga-'],values['-Código-'],
         values['-Costo-'],values['-Presupuesto-'],values['-Pago-'],values['-Notas-'])) # Escribe datos nuevos.
-        #(-------Carga en Excel-------)
-        new_record_excel = pd.DataFrame(values, index=[0])
-        df = pd.concat([df_pacientes, new_record_excel], ignore_index=True) # Escribe datos nuevos.
-        #update = pd.DataFrame.update(self= df,other=new_record,overwrite=True) # Sobreescribe datos. Tiene que haber datos en las celdas para que funcione.
-        with pd.ExcelWriter(EXCEL_FILE,mode='a',if_sheet_exists='overlay') as writer: # Función para escribir sobre una pestaña seleccionada y que no reemplace lo anterior.
-            df.to_excel(writer,sheet_name='Hoja1', index=False)
-
         sg.popup('Datos guardados!')
         clear_input()
 window_pacientes.close()

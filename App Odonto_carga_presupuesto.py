@@ -1,18 +1,16 @@
 # Código que genera una GUI para ingresar datos de presupuesto en una base de datos y en un archivo de Excel existentes.
 
 import PySimpleGUI as sg
-import App_Odonto_SQL
+import App_Lolo_SQL
 
-query_pacientes_dni= App_Odonto_SQL.query_pacientes_dni           # Trae los DNI de los pacientes.
-query_pacientes_nombre= App_Odonto_SQL.query_pacientes_nombre     # Trae los Nombres de los pacientes.
-#query_id=App_Odonto_SQL.query_id                  # Trae el Id del registro según Nombre o DNI.
-connection = App_Odonto_SQL.connection            # Parámetros de conexión a la base de datos.
-execute_query = App_Odonto_SQL.execute_query      # Función para ejecutar alguna consulta SQL.
-query_nombre_dni=App_Odonto_SQL.query_nombre_dni    # Trae el nombre del paciente según el Id consultado.
-query_dni_nombre=App_Odonto_SQL.query_dni_nombre    # Trae el DNI del paciente según el Id consultado.
-crear_presupuesto= App_Odonto_SQL.crear_presupuesto    # Carga datos en la tabla de presupuestos.
-
-"""Está 'rota' la búsqueda (App_Odonto_Consulta_DB) por DNI y por nombre porque iba a hacerla por número de orden"""
+query_pacientes_dni= App_Lolo_SQL.query_pacientes_dni           # Trae los DNI de los pacientes.
+query_pacientes_nombre= App_Lolo_SQL.query_pacientes_nombre     # Trae los Nombres de los pacientes.
+query_id=App_Lolo_SQL.query_id                  # Trae el Id del registro según Nombre o DNI.
+connection = App_Lolo_SQL.connection            # Parámetros de conexión a la base de datos.
+execute_query = App_Lolo_SQL.execute_query      # Función para ejecutar alguna consulta SQL.
+query_nombre_id=App_Lolo_SQL.query_nombre_id    # Trae el nombre del paciente según el Id consultado.
+query_dni_id=App_Lolo_SQL.query_dni_id    # Trae el DNI del paciente según el Id consultado.
+crear_presupuesto= App_Lolo_SQL.crear_presupuesto    # Carga datos en la tabla de presupuestos.
 
 #-----------------------------Creación de la GUI-------------------------------------------------------------------------
 
@@ -20,12 +18,10 @@ crear_presupuesto= App_Odonto_SQL.crear_presupuesto    # Carga datos en la tabla
 formatos={'Letra':'Italic','Tamaño título':14,'Tamaño bloques':12}
 
 presupuestos_col= [
-                [sg.Text('Buscar por N° de Orden',size=(20,1),font=(formatos['Letra'],formatos['Tamaño título']))], #Consultar DNI del paciente para cargarle un presupuesto.
-                [sg.Combo(values=(query_pacientes_dni()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-ORDEN-')],
-                #[sg.Text('Buscar por D.N.I',size=(20,1),font=(formatos['Letra'],formatos['Tamaño título']))], #Consultar DNI del paciente para cargarle un presupuesto.
-                #[sg.Combo(values=(query_pacientes_dni()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-Lista DNI-')], 
-                #[sg.Text('Buscar por Nombre',size=(20,1),font=(formatos['Letra'],formatos['Tamaño título']))], # Consultar nombre del paciente para cargarle un presupuesto.
-                #[sg.Combo(values=(query_pacientes_nombre()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-Lista NOM-')],  
+                [sg.Text('Buscar por D.N.I',size=(20,1),font=(formatos['Letra'],formatos['Tamaño título']))], #Consultar DNI del paciente para cargarle un presupuesto.
+                [sg.Combo(values=(query_pacientes_dni()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-Lista DNI-')], 
+                [sg.Text('Buscar por Nombre',size=(20,1),font=(formatos['Letra'],formatos['Tamaño título']))], # Consultar nombre del paciente para cargarle un presupuesto.
+                [sg.Combo(values=(query_pacientes_nombre()),default_value='Seleccionar',size=(15,1),font=(formatos['Letra'][0],11),enable_events=True,key='-Lista NOM-')],  
                 [sg.Text('DNI', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(30),key='-DNI-')],
                 [sg.Text('Nombre', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(30),key='-Nombre-')],
                 [sg.Text('Fecha', size=(15,1),font=(formatos['Letra'],formatos['Tamaño bloques'])), sg.InputText(size=(15),key='-Fecha-')],
@@ -65,29 +61,30 @@ while True:
         dni_unico=(values['-Lista DNI-'])
         window_presupuestos['-DNI-'].update(dni_unico)
 
-        #nombre_prolijo=(values['-Lista NOM-']) # Venía entre llaves.
-        #nombre=f'"{nombre_prolijo}"' 
+        nombre_prolijo=(values['-Lista NOM-']) # Venía entre llaves.
+        nombre=f'"{nombre_prolijo}"' 
 
-        #new_dni = query_dni_nombre(dni_unico) # Le pasa el valor del nombre a la función para que traiga el DNI.    
-        
-        nombre_dni= query_nombre_dni(dni_unico) # Le pasa el valor del DNI a la función para que traiga el nombre. 
-        
+        new_dni = query_id(dni_unico) # Le pasa el valor del DNI a la función para que traiga el Id.    
+
+        nombre_id= query_nombre_id(new_dni[0]) # Trae el nombre del paciente según el Id relacionado con el DNI.
+        #print(nombre_id[0])
         # Actualización de los valores en los cuadros y listas.
-        
-        window_presupuestos['-Nombre-'].update(nombre_dni[0])
+        #window_presupuestos['-Nombre-'].update(nombre_prolijo)
+        window_presupuestos['-Nombre-'].update(nombre_id[0])
         window_presupuestos['-Lista DNI-'].update(dni_unico)    
-        window_presupuestos['-Lista NOM-'].update(nombre_dni[0])
+        window_presupuestos['-Lista NOM-'].update(nombre_id[0])
 
     if event == '-Lista NOM-':
         nombre_prolijo=(values['-Lista NOM-']) # Venía entre llaves.
         nombre=f'"{nombre_prolijo}"'   # Limpia el texto para pasarlo a la función.
         
-        dni_nombre=query_dni_nombre(nombre)  # Trae el DNI del paciente según el Id relacionado con el Nombre.
-
+        nuevo_nombre= query_id(nombre)  # Le pasa el valor del Nombre a la función para que traiga el Id.
+        
+        dni_id=query_dni_id(nuevo_nombre[0])  # Trae el DNI del paciente según el Id relacionado con el Nombre.
         # Actualización de los valores en los cuadros y listas.
         window_presupuestos['-Nombre-'].update(nombre_prolijo) 
-        window_presupuestos['-DNI-'].update(dni_nombre[0])
-        window_presupuestos['-Lista DNI-'].update(dni_nombre[0])
+        window_presupuestos['-DNI-'].update(dni_id[0])
+        window_presupuestos['-Lista DNI-'].update(dni_id[0])
         window_presupuestos['-Lista NOM-'].update(nombre_prolijo)
 
     if event == 'Cargar':

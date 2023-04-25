@@ -87,31 +87,31 @@ def query_id(valor):
  
     cursor = connection.cursor(buffered=True)
     cursor.execute(f"SELECT Id FROM pacientes WHERE DNI = {valor} or Nombre = {valor} ;" )
-    
+    #cursor.execute(sql,{'DNI': DNI})
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado]
     #print(resultado)
     #print(resultado_limpio)
     return resultado_limpio
     
-def query_nombre_dni(dni):
+def query_nombre_id(id):
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT Nombre FROM pacientes WHERE DNI = {dni};" )
-    
+    cursor.execute(f"SELECT Nombre FROM pacientes WHERE Id = {id};" )
+    #cursor.execute(sql,{'DNI': DNI})
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado]
     #print(resultado)
     #print(resultado_limpio)
     return resultado_limpio
 
-def query_dni_nombre(nombre):
+def query_dni_id(id):
     cursor = connection.cursor(buffered=True)
-    cursor.execute(f"SELECT DNI FROM pacientes WHERE Nombre = {nombre};" )
-    
+    cursor.execute(f"SELECT DNI FROM pacientes WHERE Id = {id};" )
+    #cursor.execute(sql,{'DNI': DNI})
     resultado = cursor.fetchall()
     resultado_limpio=[x[0] for x in resultado]
     #print(resultado)
-    #print(resultado_limpio)
+    print(resultado_limpio)
     return resultado_limpio
 
 def query_pacientes_nombre():       # Trae los Nombres de los pacientes.
@@ -144,14 +144,6 @@ def query_historia(event,value): # Trae la hsitoria clínica de los pacientes.
         consulta=row
  
     return consulta[0] # Se especifica el valor 0 de la tupla que se genera, para verlo como string.
-
-def query_presupuestos_fecha():
-    cursor = connection.cursor(buffered=True)
-    cursor.execute("SELECT Fecha FROM presupuestos")
-    resultado = cursor.fetchall()
-    resultado_limpio=[x[0] for x in resultado] # Porque devolvía una lista con tuplas adentro y los nombres entre llaves. Al especificar el índice, los trae como string.
-   
-    return resultado_limpio
 
 """ 
 def query_deuda(event,value):
