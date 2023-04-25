@@ -85,9 +85,3 @@ while True:
         #update = pd.DataFrame.update(self= df,other=new_record,overwrite=True) # Sobreescribe datos. Tiene que haber datos en las celdas para que funcione.
         with pd.ExcelWriter(EXCEL_FILE,mode='a',if_sheet_exists='overlay') as writer: # Función para escribir sobre una pestaña seleccionada y que no reemplace lo anterior.
             df.to_excel(writer,sheet_name='Hoja1', index=False)
-
-        sg.popup('Datos guardados!')
-        clear_input()
-        #if event == '-CONS-':
-           #import App_Odonto_consulta_DB
-window_pacientes.close()
