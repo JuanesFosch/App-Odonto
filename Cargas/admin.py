@@ -8,3 +8,4 @@ admin.site.register(Pacientes)
 admin.site.register(Presupuestos)
 admin.site.register(Cobranzas)
 
+
