@@ -1,0 +1,11 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+    <p>Cobranzas</p>
+    <ul>
+        {% for cobranza in cobranzas %}
+            <li>{{ cobranza }}</li>
+        {% empty %}
+            <li>Agregar cobranza.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

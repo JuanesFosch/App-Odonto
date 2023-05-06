@@ -1,0 +1,11 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+    <p>Pacientes</p>
+    <ul>
+        {% for paciente in pacientes %}
+            <li>{{ paciente }}</li>
+        {% empty %}
+            <li>Agregar pacientes.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

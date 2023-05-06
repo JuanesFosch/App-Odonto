@@ -1,0 +1,9 @@
+{% extends "Cargas/base.html" %}
+
+{% block content %}
+    <ul>
+        <li><a href="{% url 'Cargas:pacientes' %}" >Pacientes</a> </li> 
+        <li><a href="{% url 'Cargas:presupuestos' %}" >Presupuestos</a>  </li>
+        <li> <a href="{% url 'Cargas:cobranzas' %}" >Cobranzas</a> </li>
+    </ul>
+{% endblock content %}

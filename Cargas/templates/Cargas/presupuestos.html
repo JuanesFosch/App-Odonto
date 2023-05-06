@@ -1,0 +1,11 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+    <p>Presupuestos</p>
+    <ul>
+        {% for presupuesto in presupuestos %}
+            <li>{{ presupuesto }}</li>
+        {% empty %}
+            <li>Agregar presupuesto.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
