@@ -1,7 +1,14 @@
+<!--Este archivo de la de formato específico a la página Secciones -->
+
 {% extends "Cargas/base.html" %}
 
+{% block page_header %}
+    <h4>Seleccionar sección:</h2>
+{% endblock page_header %}
+
+
 {% block content %}
-    <ul>
+    <ul  >
         <li><a href="{% url 'Cargas:pacientes' %}" >Pacientes</a> </li> 
         <li><a href="{% url 'Cargas:presupuestos' %}" >Presupuestos</a>  </li>
         <li> <a href="{% url 'Cargas:cobranzas' %}" >Cobranzas</a> </li>
