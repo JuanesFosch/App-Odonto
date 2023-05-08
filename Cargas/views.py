@@ -27,5 +27,6 @@ def presupuestos(request):
 def cobranzas(request):
     """Muestra la sección Cobranzas"""
     cobranzas= Cobranzas.objects.all()
-    context= {'cobranzas':cobranzas}
+    presupuestos=Presupuestos.objects.all()
+    context= {'cobranzas':cobranzas,'presupuestos':presupuestos}
     return render(request, 'Cargas/cobranzas.html', context)

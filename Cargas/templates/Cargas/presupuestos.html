@@ -3,7 +3,18 @@
     <p>Presupuestos</p>
     <ul>
         {% for presupuesto in presupuestos %}
-            <li>{{ presupuesto }}</li>
+            <li>Número de Orden: {{ presupuesto.Número_de_orden }}</li>
+            <ul>
+                <li>Paciente: {{presupuesto.Paciente_Dni}}</li>
+                <li>Fecha: {{presupuesto.Fecha}}</li>
+                <li>Tratamientos:</li>
+                <ul>
+                    <li>Tratamiento 1: {{presupuesto.Tratamiento_1}}</li>
+                    <li>Tratamiento 2: {{presupuesto.Tratamiento_2}}</li>
+                    <li>Tratamiento 3: {{presupuesto.Tratamiento_3}}</li>
+                    </ul>
+                <li>Monto: {{presupuesto.Monto}}</li>        
+                </ul>
         {% empty %}
             <li>Agregar presupuesto.</li>
         {% endfor %}

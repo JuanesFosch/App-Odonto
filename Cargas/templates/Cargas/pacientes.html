@@ -3,7 +3,13 @@
     <p>Pacientes</p>
     <ul>
         {% for paciente in pacientes %}
-            <li>{{ paciente }}</li>
+            <li>{{ paciente.Nombre}}</li>
+            <ul>
+                <li>DNI: {{paciente.DNI}}</li>
+                <li>Tel: {{paciente.Teléfono}}</li>
+                <li>E-mail: {{paciente.E_mail}}</li>
+                <li>Obra Social/Prepaga: {{paciente.Obra_Social_Prepaga}}</li>
+            </ul>
         {% empty %}
             <li>Agregar pacientes.</li>
         {% endfor %}

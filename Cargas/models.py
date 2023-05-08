@@ -35,7 +35,7 @@ class Presupuestos(models.Model):
     #Cuotas
 
     def __str__(self):                                          # Formateo del modelo visible en la web
-        return "Número de orden: " + str(self.Número_de_orden)
+        return "Número de orden: " + str(self.Número_de_orden) 
 
     class Meta:                                                 # Formateo del modelo visible en la web
         verbose_name_plural= "Presupuestos"
@@ -45,13 +45,14 @@ class Cobranzas(models.Model):
     """Modelo que crea la tabla 'Cargas_cobranzas' en la BD y la interacción en el sitio para ingresar datos."""
     Número_de_comprobante= models.IntegerField(primary_key=True,auto_created=True,default=0000)
     Número_de_orden= models.ManyToManyField(Presupuestos,blank=False,auto_created=True)
+    Orden= models.IntegerField(Número_de_orden,blank=False,default=000)
     #DNI
     #NÚMERO DE TRATAMIENTO
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
     Cuánto_pagó = models.IntegerField(blank=True)
 
     def __str__(self):                                          # Formateo del modelo visible en la web
-        return "Número de comprobante: " + str(self.Número_de_comprobante)
+        return "Número de comprobante: " + str(self.Número_de_comprobante)+" - Número_de_orden: " + str(self.Número_de_orden)
 
     class Meta:                                                 # Formateo del modelo visible en la web
         verbose_name_plural= "Cobranzas"

@@ -3,7 +3,12 @@
     <p>Cobranzas</p>
     <ul>
         {% for cobranza in cobranzas %}
-            <li>{{ cobranza }}</li>
+        <li>Número de Comprobante: {{ cobranza.Número_de_comprobante}}</li>
+        <ul>
+            <li>Número de orden: {{cobranza.Orden}}</li>
+            <li>Fecha de cobro: {{cobranza.Fecha_de_cobro}}</li>
+            <li>Cuánto pagó: {{cobranza.Cuánto_pagó}}</li>
+        </ul>
         {% empty %}
             <li>Agregar cobranza.</li>
         {% endfor %}

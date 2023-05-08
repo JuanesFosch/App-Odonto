@@ -34,6 +34,9 @@ INSTALLED_APPS = [
 
     # Agregadas
     "Cargas",
+    # Aplicaciones de terceros
+    'bootstrap4',
+
     # Default Apps
     'django.contrib.admin',
     'django.contrib.auth',
