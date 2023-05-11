@@ -1,60 +1,52 @@
 <!--Este archivo es el que se usa de base para el formato general de todas las páginas -->
 
 {% load bootstrap4 %}
-
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
-<body>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,
         shrink-to-fit=no">
-    <title>App Odonto</title>
-
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
-    <!---Se aplica el formato para distintos elementos-->
-    <style>   
-        ul {
-          list-style-type: disc;
-        }
-    
-        li {
-          color: rgb(4, 101, 237);
-        }
-        h4 {
-            color:  rgb(8, 64, 143);
-        }
-        p {
-            color:  rgb(44, 96, 169);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-      </style>
+  <title>App Odonto</title>
+   <!---Se aplica el formato para distintos elementos-->
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">  
+  <link href="{% static 'list-groups.css' %}" rel="stylesheet">
+  <link href="{% static 'estilos.css' %}" rel="stylesheet">
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+   
 </head>
-            <!--Esta sección le da formato a la barra de navegación superior -->
-    <nav class="navbar navbar-expand-md navbar-light  mb-4 border"style="background-color: #e3f2fd;">
 
-        <a class="=navbar-brand ml-auto" href="{% url 'Cargas:index' %}">
-            App Odonto
-            <p>Home</p> 
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
+<body>
+<!--Esta sección le da formato a la barra de navegación superior -->
+    
+
+<nav id="navbar" class="navbar navbar-expand-md navbar-light  mb-4 border" >
+    <h6>App Odonto</h6>
+   
+      <!---Esto hace que cambie el formato de la barra según cambia el tamaño de la ventana-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse"
             aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <a class="nav-link" href="{% url 'Cargas:secciones'%}">
-            Secciones</a>
-      </div>
-    </nav>
-    <!--Esta sección le da formato general a la sección central de las páginas -->
+      <span class="navbar-toggler-icon"></span></button>
+      
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <a class="nav-link" href="{% url 'Cargas:index'%}">
+        Home</a>
+      <a class="nav-link" href="{% url 'Cargas:secciones'%}">
+        Secciones</a>
+    </div>
+</nav>
+<!--Esta sección le da formato general a la sección central de las páginas -->
   <main role="main" class="container" >
     <div class="pb-2 mb-2 border-bottom" > 
-        {% block page_header %}{% endblock page_header %}
+
     </div>
     <div>
-        {% block content %}{% endblock content %}
+        {% block content %}
+        
+        {% endblock content %}
     </div>
   </main>
 
