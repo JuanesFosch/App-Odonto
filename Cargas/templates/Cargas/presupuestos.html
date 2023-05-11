@@ -1,22 +1,27 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
     <p>Presupuestos</p>
+{% for presupuesto in presupuestos %}
+<div class= "card mb">
+  <h4 class="card-header">
+    <small>Número de Orden: {{ presupuesto.Número_de_orden }}</small>
+  </h4>
+  <div class="card-body">
     <ul>
-        {% for presupuesto in presupuestos %}
-            <li>Número de Orden: {{ presupuesto.Número_de_orden }}</li>
-            <ul>
-                <li>Paciente: {{presupuesto.Paciente_Dni}}</li>
-                <li>Fecha: {{presupuesto.Fecha}}</li>
-                <li>Tratamientos:</li>
-                <ul>
-                    <li>Tratamiento 1: {{presupuesto.Tratamiento_1}}</li>
-                    <li>Tratamiento 2: {{presupuesto.Tratamiento_2}}</li>
-                    <li>Tratamiento 3: {{presupuesto.Tratamiento_3}}</li>
-                    </ul>
-                <li>Monto: {{presupuesto.Monto}}</li>        
-                </ul>
-        {% empty %}
-            <li>Agregar presupuesto.</li>
-        {% endfor %}
+        <li>Paciente: {{presupuesto.Paciente_Dni}}</li>
+        <li>Fecha: {{presupuesto.Fecha|date:'d/M/Y'}}</li>
+        <li>Tratamientos:</li>
+        <ul>
+            <li>Tratamiento 1: {{presupuesto.Tratamiento_1}}</li>
+            <li>Tratamiento 2: {{presupuesto.Tratamiento_2}}</li>
+            <li>Tratamiento 3: {{presupuesto.Tratamiento_3}}</li>
+        </ul>
+        <li>Monto: {{presupuesto.Monto}}</li>        
     </ul>
+  </div>
+    {% empty %}
+        <li>Agregar presupuesto.</li>
+{% endfor %}
+
 {% endblock content %}
+
