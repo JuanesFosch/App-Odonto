@@ -1,18 +1,20 @@
+
 {% extends "Cargas/base.html" %}
 {% block content %}
     <p>Cobranzas</p>
 
-{% for cobranza in cobranzas %}
+{% for item in context_list %}
  <div class= "card mb">
   <h4 class="card-header">
     <small>
-        Número de comprobante: {{ cobranza.Número_de_comprobante}}</small>
+        Número de comprobante: {{ item.cobranza.Número_de_comprobante}}</small>
   </h4>
  <div class="card-body">
-    <ul>
-        <li>Número de orden: {{cobranza.Orden}}</li>
-        <li>Fecha de cobro: {{cobranza.Fecha_de_cobro|date:'d/M/Y'}}</li>
-        <li>Cuánto pagó: {{cobranza.Cuánto_pagó}}</li>
+    <ul> {% for valor in item.presupuestos %}
+        <li>Número de orden: {{ valor }}</li>
+        {% endfor %}
+        <li>Fecha de cobro: {{ item.cobranza.Fecha_de_cobro|date:'d/M/Y' }}</li>
+        <li>Cuánto pagó: {{ item.cobranza.Cuánto_pagó }}</li>
     </ul>
         </div>
  </div>

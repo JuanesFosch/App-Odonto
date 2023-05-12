@@ -22,7 +22,7 @@ class Pacientes(models.Model):
 class Presupuestos(models.Model):
     """Modelo que crea la tabla 'Cargas_presupuestos' en la BD y la interacción en el sitio para ingresar datos."""
     #consultar Nombre a la BD
-    Paciente_Dni= models.ForeignKey("Pacientes",on_delete=models.CASCADE)
+    Paciente_Dni= models.ForeignKey("Pacientes",on_delete=models.CASCADE, related_name='Presupuestos')
     Número_de_orden= models.IntegerField(primary_key=True,auto_created=True,default=0000,blank=False)  
     Fecha= models.DateField(auto_now_add=True,blank=True)
     # Acá van campos con los tipos de tratamientos consultados a una futura tabla de códigos de las obras sociales y prepagas.
@@ -44,8 +44,7 @@ class Presupuestos(models.Model):
 class Cobranzas(models.Model):
     """Modelo que crea la tabla 'Cargas_cobranzas' en la BD y la interacción en el sitio para ingresar datos."""
     Número_de_comprobante= models.IntegerField(primary_key=True,auto_created=True,default=0000)
-    Número_de_orden= models.ManyToManyField(Presupuestos,blank=False,auto_created=True)
-    Orden= models.IntegerField(Número_de_orden,blank=False,default=000)
+    Número_de_orden= models.ManyToManyField(Presupuestos,blank=False,auto_created=True,related_name='Cobranzas')
     #DNI
     #NÚMERO DE TRATAMIENTO
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
@@ -59,6 +58,7 @@ class Cobranzas(models.Model):
         ordering = ['Número_de_comprobante']
     
     
+
 
     
 

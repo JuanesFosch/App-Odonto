@@ -26,7 +26,21 @@ def presupuestos(request):
 
 def cobranzas(request):
     """Muestra la sección Cobranzas"""
-    cobranzas= Cobranzas.objects.all()
-    presupuestos=Presupuestos.objects.all()
-    context= {'cobranzas':cobranzas,'presupuestos':presupuestos}
+    cobranzas= Cobranzas.objects.all()  # Se obtiene un queryset los campos de la tabla Cobranzas.
+    context_list = []
+    for cobranza in cobranzas:
+        # Se obtiene el número de comprobante de cada cobranza.
+        número_de_comprobante=cobranza.Número_de_comprobante
+        # Se obtiene un queryset con el número de orden de cada Cobranza. Es decir a qué Presupuesto existente corresponde cada cobro.
+        presupuestos=Presupuestos.objects.filter(Cobranzas__Número_de_comprobante=f"{número_de_comprobante}").distinct()
+        # Se obtiene el valor del número de orden dentro del queryset.
+        valores=presupuestos.values_list('Número_de_orden', flat=True)
+        # Se llena la lista creada antes del bucle For con los resultados de las consultas.
+        context_list.append({
+            'cobranza': cobranza,
+            'presupuestos': valores
+        })
+        # Se usa la lista llena como contexto para pasar a la función 'render'
+        context = {'context_list': context_list}
     return render(request, 'Cargas/cobranzas.html', context)
+
