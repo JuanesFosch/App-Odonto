@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
 from .models import *
+from .forms import PacientesForm, PresupuestosForm, CobranzasForm
 
 def index(request):
     """El home para App Odonto"""
@@ -11,6 +12,22 @@ def index(request):
 def secciones(request):
     """"Secciones"""
     return render(request, 'Cargas/secciones.html')
+
+def carga_pacientes(request):
+    """Permite a un usuario cargar pacientes"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= PacientesForm()
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= PacientesForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:carga_pacientes')
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_pacientes.html', context )
+
 
 def pacientes(request):
     """Muestra la sección Pacientes"""
@@ -23,6 +40,21 @@ def presupuestos(request):
     presupuestos= Presupuestos.objects.all()
     context= {'presupuestos':presupuestos}
     return render(request, 'Cargas/presupuestos.html', context)
+
+def carga_presupuestos(request):
+    """Permite a un usuario cargar presupuestos"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= PresupuestosForm()
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= PresupuestosForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:carga_presupuestos')
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_presupuestos.html', context )
 
 def cobranzas(request):
     """Muestra la sección Cobranzas"""
@@ -44,3 +76,17 @@ def cobranzas(request):
         context = {'context_list': context_list}
     return render(request, 'Cargas/cobranzas.html', context)
 
+def carga_cobranzas(request):
+    """Permite a un usuario cargar cobranzas"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= CobranzasForm()
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= CobranzasForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:carga_cobranzas')
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_cobranzas.html', context )
