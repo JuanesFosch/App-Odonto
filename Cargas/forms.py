@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pacientes, Presupuestos, Cobranzas, Saldos
+from .models import Pacientes, Presupuestos, Cobranzas
 
 
 class PacientesForm(forms.ModelForm):
@@ -18,15 +18,10 @@ class PresupuestosForm(forms.ModelForm):
 
     def save(self, commit=True):
         fields_presu=super(PresupuestosForm,self).save(commit=False)
-        saldos_monto_y_saldo=Saldos(Número_de_orden_id=self.cleaned_data['Número_de_orden'],
-                            Monto=self.cleaned_data['Monto'],
-                            Saldo=self.cleaned_data['Monto'])
 
         if commit:
             fields_presu.save()
-            saldos_monto_y_saldo.save()
-
-        return (fields_presu, saldos_monto_y_saldo)
+        return (fields_presu)
 
 
 class CobranzasForm(forms.ModelForm):
@@ -37,14 +32,7 @@ class CobranzasForm(forms.ModelForm):
 
     def save(self, commit=True):
         fields_cobra=super(CobranzasForm,self).save(commit=False)
-        saldos_comprobante_y_cuánto=Saldos(
-                            Número_de_comprobante_id=self.cleaned_data['Número_de_comprobante'],
-                            Número_de_orden_id=self.cleaned_data['Número_de_orden'],
-                            Cuánto_pagó=self.cleaned_data['Cuánto_pagó'],
-                            )
 
         if commit:
             fields_cobra.save()
-            saldos_comprobante_y_cuánto.save()
-
-        return (fields_cobra, saldos_comprobante_y_cuánto)
+        return (fields_cobra)

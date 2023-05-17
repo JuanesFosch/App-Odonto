@@ -1,6 +1,7 @@
 """Define los patrones URL para Cargas."""
 
 from django.urls import path
+
 from . import views
 
 app_name = 'Cargas'
@@ -21,4 +22,4 @@ urlpatterns = [
     path('cobranzas', views.cobranzas, name='cobranzas'),
     # Página con la sección 'Carga de Cobranzas'
     path('carga_cobranzas', views.carga_cobranzas, name='carga_cobranzas'),
-]
+]   

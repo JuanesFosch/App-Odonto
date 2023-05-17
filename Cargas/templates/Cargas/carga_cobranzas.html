@@ -1,6 +1,6 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<p>Agregar una cobranzas:</p>
+<p>Agregar una cobranza:</p>
     <form action="{% url 'Cargas:carga_cobranzas' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
