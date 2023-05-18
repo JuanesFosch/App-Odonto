@@ -45,10 +45,13 @@ def presupuestos2(request):
 def presupuestos(request):
     """Muestra la sección Presupuestos"""
     presupuestos_p= Presupuestos.objects.all()
-    #context_p= {'presupuestos':presupuestos}
+    context_presupuestos= []
+    context_presupuestos.append({
+                        'presupuestos':presupuestos_p
+                        })
     """Muestra la sección Cobranzas"""
     cobranzas= Cobranzas.objects.all()  # Se obtiene un queryset los campos de la tabla Cobranzas.
-    context_list = []   # Es una lista de diccionarios
+    context_cobranzas = []   # Es una lista de diccionarios
     for cobranza in cobranzas:
         # Se obtiene el número de comprobante de cada cobranza.
         número_de_comprobante=cobranza.Número_de_comprobante
@@ -57,23 +60,30 @@ def presupuestos(request):
         # Se obtiene el valor del número de orden dentro del queryset.
         valores=presupuestos_c.values_list('Número_de_orden', flat=True)
         # Se llena la lista creada antes del bucle For con los resultados de las consultas.
-        context_list.append({
+        context_cobranzas.append({
             'cobranza': cobranza,
             'presupuestos': valores
         })           # Se usa la lista llenada como contexto para pasar a la función 'render'
+        context = {'context_cobranzas': context_cobranzas}
         # Este calcula el Saldo! ----- FALTA TRAER DINÁMICO EL NÚMERO DE ORDEN
-        monto=Presupuestos.objects.filter(Número_de_orden__exact=2).values_list('Monto', flat=True)
-        cuánto_pagó=Cobranzas.objects.filter(Número_de_orden__exact=2).values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó"))
-        números_de_comprobante=Cobranzas.objects.filter(Número_de_orden__exact=2).values_list('Número_de_comprobante', flat=True) 
+        valores_p=presupuestos_p.values_list('Número_de_orden', flat=True)
+    for valor in valores_p:
+        orden=valor
+        #orden
+        monto=Presupuestos.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Monto', flat=True)
+        cuánto_pagó=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó"))
+        números_de_comprobante=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Número_de_comprobante', flat=True) 
         saldo= monto[0] - cuánto_pagó['Cuánto_pagó__sum'] 
-        context = {'presupuestos':presupuestos_p,'context_list': context_list, 'saldo':saldo,'números_de_comprobante':números_de_comprobante}
-
-        for i in context_list:
-            #llaves=i.keys()
-            valores=i.items()
-            llaves['presupuestos']
-
+        context_presupuestos.append({
+                        'saldo': saldo,
+                        'números_de_comprobante':números_de_comprobante
+            })     
+    context['context_presupuestos'] = context_presupuestos
     return render(request, 'Cargas/presupuestos.html', context)
+        
+"""  FALTA RESOLVER EL RENDER  """
+    
+
 # Obtener el número de orden de cada item dentro del context list
 #context_list[0]['presupuestos'][0]
 #context_list[1]['presupuestos'][0]

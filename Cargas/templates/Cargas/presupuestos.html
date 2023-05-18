@@ -3,25 +3,25 @@
 <div style="display: flex;">
   <div style="flex: 1;">
     <p>Presupuestos</p>
-    {% for presupuesto in presupuestos %}
+    {% for item in context_presupuestos %}
     <div class= "card mb">
         <h4 class="card-header">
-          <small>Número de Orden: {{ presupuesto.Número_de_orden }}</small>
+          <small>Número de Orden: {{ item.presupuestos.Número_de_orden }}</small>
         </h4>
         <div class="card-body">
           <ul>
-              <li>Paciente: {{presupuesto.Paciente_Dni}}</li>
-              <li>Fecha: {{presupuesto.Fecha|date:'d/M/Y'}}</li>
+              <li>Paciente: {{item.presupuestos.Paciente_Dni}}</li>
+              <li>Fecha: {{item.presupuestos.Fecha|date:'d/M/Y'}}</li>
               <li>Tratamientos:</li>
               <ul>
-                  <li>Tratamiento 1: {{presupuesto.Tratamiento_1}}</li>
-                  <li>Tratamiento 2: {{presupuesto.Tratamiento_2}}</li>
-                  <li>Tratamiento 3: {{presupuesto.Tratamiento_3}}</li>
+                  <li>Tratamiento 1: {{item.presupuestos.Tratamiento_1}}</li>
+                  <li>Tratamiento 2: {{item.presupuestos.Tratamiento_2}}</li>
+                  <li>Tratamiento 3: {{item.presupuestos.Tratamiento_3}}</li>
               </ul>
-              <li>Monto: {{presupuesto.Monto}}</li>
-              <li>Saldo: {{saldo}}</li>
-                  <ul> {% for i in números_de_comprobante %}
-                      <li>Número de comprobante: {{ i }}</li>
+              <li>Monto: {{item.presupuestos.Monto}}</li>
+              <li>Saldo: {{item.saldo}}</li>
+                  <ul> {% for item in item.números_de_comprobante %}
+                      <li>Número de comprobante: {{ item }}</li>
                   {% endfor %}
                   </ul>   
           </ul>
@@ -36,7 +36,7 @@
 <div style="flex: 1;">
 <p>Cobranzas</p>
 
-{% for item in context_list %}
+{% for item in context_cobranzas %}
  <div class= "card mb">
   <h4 class="card-header">
     <small>

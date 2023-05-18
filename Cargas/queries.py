@@ -1,4 +1,6 @@
 from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes
+from django.db.models import Sum
+
 
 Propios=Tratamientos_Propios.objects.all()
 for valor in Propios:
@@ -69,12 +71,34 @@ monto=Presupuestos.objects.filter(Número_de_orden__exact=2).values_list('Monto'
 cuánto_pagó=Cobranzas.objects.filter(Número_de_orden__exact=2).values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó")) 
 saldo= monto[0] - cuánto_pagó['Cuánto_pagó__sum'] 
 números_de_comprobante=Cobranzas.objects.filter(Número_de_orden__exact=2).values_list('Número_de_comprobante', flat=True)
+
 for i in números_de_comprobante:
     compr=i
     compr
+
+#----Traer el número de orden según comprobante, dinámico
+
+orden=Presupuestos.objects.all().values_list('Número_de_orden', flat=True)
+for i in orden:
+    orden=i
+    print(f'número de orden: {orden}')
+    monto=Presupuestos.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Monto', flat=True)
+    print(f'monto: {monto}')
+    cuánto_pagó=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó"))
+    print(f'cuánto pagó: {cuánto_pagó}') 
+    saldo= monto[0] - cuánto_pagó['Cuánto_pagó__sum']
+    print(f'saldo: {saldo}') 
+    números_de_comprobante=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Número_de_comprobante', flat=True)
+    print(f'números de comprobante: {números_de_comprobante}')
+
+
+
+
 # Para trabajar con agregaciones en los QuerySet (contar, sumar, promedio, etc) hay que usar las funciones de cada tipo importadas desde Django.
 # Para usar la función 'Sum' hay que importarla así: from django.db.models import Sum. 
 Cobranzas.objects.aggregate(Sum("Cuánto_pagó"))
+
+
 #------------------------------------------------------------------
 #       Maneras de corroborar si hay que cobrar por obra social o particular
 #------------------------------------------------------------------
@@ -114,3 +138,50 @@ else:
 #----------------------------------------------------------------------------------------
 
 
+presupuestos_p= Presupuestos.objects.all() # Esto es para traer los objetos de ese modelo,
+                                            # y usarlos en los calculos y en el render exclusivo del lado presupuestos.
+context_presupuestos= []
+context_presupuestos.append({
+                        'presupuestos':presupuestos_p
+                        })
+"""Muestra la sección Cobranzas"""
+cobranzas= Cobranzas.objects.all()  # Se obtiene un queryset los campos de la tabla Cobranzas.
+context_cobranzas = []  # Es una lista de diccionarios
+  
+for cobranza in cobranzas:
+        # Se obtiene el número de comprobante de cada cobranza.
+        número_de_comprobante=cobranza.Número_de_comprobante  # Trae lo que está definido en el 'return' de la definición del modelo Cobranzas
+        # Se obtiene un queryset con el número de orden de cada Cobranza. Es decir a qué Presupuesto existente corresponde cada cobro.
+        presupuestos_c=Presupuestos.objects.filter(Cobranzas__Número_de_comprobante=f"{número_de_comprobante}").distinct()
+        # Se obtiene el valor del número de orden dentro del queryset.
+        valores=presupuestos_c.values_list('Número_de_orden', flat=True)
+        # Se llena la lista creada antes del bucle For con los resultados de las consultas.
+        context_cobranzas.append({
+            'cobranza': cobranza,
+            'presupuestos': valores
+        })       
+        context = {'context_cobranzas': context_cobranzas}
+        # Este calcula el Saldo! ----- FALTA TRAER DINÁMICO EL NÚMERO DE ORDEN
+        valores_p=presupuestos_p.values_list('Número_de_orden', flat=True) # Ahora funciona porque antes hacía el bucle sobre la cantidad de numeros de comprobante, osea 3.
+for valor in valores_p:
+        orden=valor
+        orden
+        print(f'número de orden: {orden}')
+        monto=Presupuestos.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Monto', flat=True)
+        print(f'monto: {monto}')
+        cuánto_pagó=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó"))
+        print(f'cuánto pagó: {cuánto_pagó}') 
+        números_de_comprobante=Cobranzas.objects.filter(Número_de_orden__exact=f'{orden}').values_list('Número_de_comprobante', flat=True)
+        print(f'números de comprobante: {números_de_comprobante}')
+        saldo= monto[0] - cuánto_pagó['Cuánto_pagó__sum']
+        print(f'saldo: {saldo}')
+        context_presupuestos.append({
+                        'saldo': saldo,
+                        'números_de_comprobante':números_de_comprobante
+            })
+context['context_presupuestos'] = context_presupuestos
+
+        
+
+context_list[0]['presupuestos']
+context_list[1]['presupuestos']
