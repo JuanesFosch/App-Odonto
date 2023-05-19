@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     # Agregadas
     "Cargas",
+    "Usuarios",
     # Aplicaciones de terceros
     'bootstrap4',
 
