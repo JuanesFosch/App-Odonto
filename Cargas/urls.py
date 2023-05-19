@@ -14,12 +14,12 @@ urlpatterns = [
     path('pacientes', views.pacientes, name='pacientes'),
     # Página con la sección 'Carga de Pacientes'
     path('carga_pacientes', views.carga_pacientes, name='carga_pacientes'),
-    # Página con la sección 'Presupuestos'
-    path('presupuestos', views.presupuestos, name='presupuestos'),
+    # Página con las secciones 'Presupuestos y Cobranzas'
+    path('presupuestos_y_cobranzas', views.presupuestos_y_cobranzas, name='presupuestos_y_cobranzas'),
     # Página con la sección 'Carga de Presupuestos'
     path('carga_presupuestos', views.carga_presupuestos, name='carga_presupuestos'),
     # Página con la sección 'Cobranzas'
-    path('cobranzas', views.cobranzas, name='cobranzas'),
+    #path('cobranzas', views.cobranzas, name='cobranzas'),
     # Página con la sección 'Carga de Cobranzas'
     path('carga_cobranzas', views.carga_cobranzas, name='carga_cobranzas'),
 ]   

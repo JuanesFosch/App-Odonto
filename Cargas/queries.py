@@ -185,3 +185,17 @@ context['context_presupuestos'] = context_presupuestos
 
 context_list[0]['presupuestos']
 context_list[1]['presupuestos']
+
+
+for presupuesto in presupuestos_p:
+    orden = presupuesto.Número_de_orden
+    monto = Presupuestos.objects.filter(Número_de_orden=orden).values_list('Monto', flat=True)
+    cuánto_pagó = Cobranzas.objects.filter(Número_de_orden=orden).values_list('Cuánto_pagó', flat=True).aggregate(Sum("Cuánto_pagó"))
+    números_de_comprobante = Cobranzas.objects.filter(Número_de_orden=orden).values_list('Número_de_comprobante', flat=True) 
+    saldo = monto[0] - cuánto_pagó['Cuánto_pagó__sum'] 
+
+    context_presupuestos.append({
+        'presupuesto': presupuesto,
+        'saldo': saldo,
+        'números_de_comprobante': números_de_comprobante
+    })
