@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 
@@ -10,6 +11,7 @@ class Pacientes(models.Model):
     Teléfono = models.IntegerField(blank=False)
     E_mail= models.CharField(max_length=40)
     Obra_Social_Prepaga= models.CharField(max_length=40)    # Esto se debería poder elegir de una lista.
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
 
     def __str__(self):                                      # Formateo del modelo visible en la web
         return self.Nombre + " - DNI: " + str(self.DNI)
@@ -23,6 +25,7 @@ class Tratamientos_Propios(models.Model):
     """Modelo que crea la tabla 'Cargas_Tratamientos_Propios' en la BD y la interacción en el sitio para ingresar datos."""
     Código_interno= models.IntegerField(null=False,default=0)
     Tratamiento= models.CharField(primary_key=True,max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
 
     def __str__(self):                                      
         return self.Tratamiento + " - " +str(self.Código_interno)
@@ -37,6 +40,7 @@ class Tratamientos_ObrasSociales_Prepagas(models.Model):
     Tratamiento= models.CharField(max_length=50)
     Código= models.IntegerField(primary_key=True, default=0) #--Podría consultarse el código a la otra tabla
     Precio= models.IntegerField(null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     
     def __str__(self):                                      
         return self.Tratamiento + " - " +str(self.Obra_Social_Prepaga)
@@ -63,6 +67,7 @@ class Presupuestos(models.Model):
     Tratamiento_3= models.CharField(max_length=100,blank=True,choices=TRATAMIENTOS)  # Para tratamientos por particular
     # Acá una bandera que muestre si el tratamiento pasa por obra social o particular.
     Monto = models.IntegerField(blank=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     #Forma de pago
     #Cuotas
 
@@ -81,6 +86,7 @@ class Cobranzas(models.Model):
     #NÚMERO DE TRATAMIENTO
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
     Cuánto_pagó = models.IntegerField(blank=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     # Formateo del modelo visible en la web
     def __str__(self):                                          
         return "Número de comprobante: " + str(self.Número_de_comprobante)+" - Número_de_orden: " + str(self.Número_de_orden)

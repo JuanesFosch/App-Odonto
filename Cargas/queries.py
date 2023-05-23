@@ -1,4 +1,4 @@
-from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes
+from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes, User
 from django.db.models import Sum
 
 
@@ -199,3 +199,18 @@ for presupuesto in presupuestos_p:
         'saldo': saldo,
         'números_de_comprobante': números_de_comprobante
     })
+
+
+#-------------Pruebas para modificar los Forms-------
+
+Presupuestos.objects.values_list('Número_de_orden', flat=True)
+presu_actual=Presupuestos.objects.values_list('Número_de_orden', flat=True).last()
+presu_actual += 1
+presu_actual=Presupuestos.objects.values()
+
+Presupuestos.objects.filter(owner=2).values_list('Paciente_Dni', flat=True).distinct()
+
+user_specific_choices=Pacientes.objects.filter(owner=1).values_list('DNI', flat=True).distinct()
+
+
+fields ={'Número_de_orden': 1,'Tratamiento_1': 'a','Tratamiento_2': 'b','Tratamiento_3': 'c','Monto': 1000}

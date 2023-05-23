@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.db.models import Sum
 # Create your views here.
 
@@ -9,10 +11,12 @@ def index(request):
     """El home para App Odonto"""
     return render(request, 'Cargas/index.html')
 
+@login_required
 def secciones(request):
     """"Secciones"""
     return render(request, 'Cargas/secciones.html')
 
+@login_required
 def carga_pacientes(request):
     """Permite a un usuario cargar pacientes"""
     if request.method != 'POST':
@@ -22,26 +26,30 @@ def carga_pacientes(request):
         # Datos cargados a través de POST, procesarlos.
         form= PacientesForm(data=request.POST)
         if form.is_valid():
+            nuevo_paciente= form.save(commit=False)
+            nuevo_paciente.owner = request.user
             form.save()
             return redirect('Cargas:carga_pacientes')
     # Muestra una planilla en blanco o inválida.
     context= {'form': form}
     return render(request,'Cargas/carga_pacientes.html', context )
 
-
+@login_required
 def pacientes(request):
     """Muestra la sección Pacientes"""
-    pacientes= Pacientes.objects.all()
+    pacientes= Pacientes.objects.filter(owner=request.user)
     context= {'pacientes':pacientes}
     return render(request, 'Cargas/pacientes.html', context)
     
-
+@login_required
 def presupuestos_y_cobranzas(request):
     """Muestra las secciones Presupuestos y Cobranzas"""
-    presupuestos_p= Presupuestos.objects.all()
+    
+    presupuestos_p= Presupuestos.objects.filter(owner=request.user)
     context_presupuestos= []
-
-    cobranzas= Cobranzas.objects.all()  # Se obtiene un queryset los campos de la tabla Cobranzas.
+    context={}  # Para evitar errores en el caso de que el usuario no tenga Presupuestos o Cobranzas cargadas,
+                # se crea vacío el diccionario 'context' necesario para la función 'render' del final. 
+    cobranzas= Cobranzas.objects.filter(owner=request.user)  # Se obtiene un queryset los campos de la tabla Cobranzas.
     context_cobranzas = []   # Es una lista que se va a llenar con diccionarios
     for cobranza in cobranzas:
         # Se obtiene el número de comprobante de cada cobranza.
@@ -72,23 +80,25 @@ def presupuestos_y_cobranzas(request):
     context['context_presupuestos'] = context_presupuestos
     return render(request, 'Cargas/presupuestos_y_cobranzas.html', context)
         
-
+@login_required
 def carga_presupuestos(request):
     """Permite a un usuario cargar presupuestos"""
     if request.method != 'POST':
         # Sin datos cargados; crear una planilla en blanco.
-        form= PresupuestosForm()
+        form= PresupuestosForm(owner=request.user)
     else:
         # Datos cargados a través de POST, procesarlos.
-        form= PresupuestosForm(data=request.POST)
+        form= PresupuestosForm(data=request.POST,owner=request.user)
         if form.is_valid():
+            nuevo_presupuesto= form.save(commit=False)
+            nuevo_presupuesto.owner = request.user
             form.save()
             return redirect('Cargas:carga_presupuestos')
     # Muestra una planilla en blanco o inválida.
     context= {'form': form}
     return render(request,'Cargas/carga_presupuestos.html', context )
 
-
+@login_required
 def carga_cobranzas(request):
     """Permite a un usuario cargar cobranzas"""
     if request.method != 'POST':
@@ -98,6 +108,8 @@ def carga_cobranzas(request):
         # Datos cargados a través de POST, procesarlos.
         form= CobranzasForm(data=request.POST)
         if form.is_valid():
+            nueva_cobranza= form.save(commit=False)
+            nueva_cobranza.owner = request.user
             form.save()
             return redirect('Cargas:carga_cobranzas')
     # Muestra una planilla en blanco o inválida.
