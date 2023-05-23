@@ -214,3 +214,5 @@ user_specific_choices=Pacientes.objects.filter(owner=1).values_list('DNI', flat=
 
 
 fields ={'Número_de_orden': 1,'Tratamiento_1': 'a','Tratamiento_2': 'b','Tratamiento_3': 'c','Monto': 1000}
+
+fields ={'Número_de_orden': 1,'Tratamiento_1': 'a','Tratamiento_2': 'b','Tratamiento_3': 'c','Monto': 1000}
