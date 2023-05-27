@@ -81,7 +81,7 @@ class Presupuestos(models.Model):
 class Cobranzas(models.Model):
     """Modelo que crea la tabla 'Cargas_cobranzas' en la BD y la interacción en el sitio para ingresar datos."""
     Número_de_comprobante= models.IntegerField(primary_key=True,auto_created=True,default=0000)
-    Número_de_orden= models.ManyToManyField(Presupuestos,blank=False,auto_created=True,related_name='Cobranzas')
+    Número_de_orden= models.ManyToManyField(Presupuestos,blank=False,auto_created=True,related_name='Cobranzas', through='CobranzasPresupuestos_Inter')
     #DNI
     #NÚMERO DE TRATAMIENTO
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
@@ -95,6 +95,13 @@ class Cobranzas(models.Model):
     class Meta:                                                 
         verbose_name_plural= "Cobranzas"
         ordering = ['Número_de_comprobante']
+
+
+class CobranzasPresupuestos_Inter(models.Model):
+    """Tabla intermedia para la relación muchos a muchos entre 'Cobranzas' y 'Presupuestos'."""
+    cobranzas = models.ForeignKey(Cobranzas, on_delete=models.CASCADE)
+    presupuesto = models.ForeignKey(Presupuestos, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 
     

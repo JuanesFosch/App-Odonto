@@ -44,6 +44,9 @@ tratamientos_propios=[
                     Tratamientos_Propios.objects.create(Código_interno=2, Tratamiento='Encías'),
                     Tratamientos_Propios.objects.create(Código_interno=3, Tratamiento='Implante'),
 ]
+presupuestos = [
+            Presupuestos.objects.create(Número_de_orden=0,Paciente_Dni=28564789,Tratamiento_1='Muelas',Tratamiento_2='',Tratamiento_3='', Monto=2000)
+]
 
 
 #------------------------------------------------------------------

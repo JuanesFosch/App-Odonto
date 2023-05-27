@@ -2,14 +2,66 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.db.models import Sum
+
 # Create your views here.
+
+#----Pruebas de otros proyectos---
+
+from django.http import HttpResponse 
+try:     
+    # Python2
+    from urllib2 import urlopen
+except ImportError:
+    # Python3
+    from urllib.request import urlopen
+
+import PIL.Image
+import io
+import requests
+import base64
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+#--------------------------------
+
 
 from .models import *
 from .forms import PacientesForm, PresupuestosForm, CobranzasForm
 
 def index(request):
     """El home para App Odonto"""
-    return render(request, 'Cargas/index.html')
+    return render(request, 'Cargas/index.html',)
+
+def prueba_imagen(request):
+    """Prueba para usar en la aplicación DACC"""
+    total_url = "https://www2.contingencias.mendoza.gov.ar/radar/latest.gif" 
+    r = requests.get(total_url)
+    imagen_base64 = base64.b64encode(r.content).decode('utf-8')
+    return render(request,'Cargas/imagen.html',{'imagen_base64': imagen_base64})
+
+
+def prueba_grafico(request):
+    """Prueba para usar en la aplicación BCRA"""
+    datos= r"C:\Users\juanf\Desktop\App BCRA\datos_completo.csv"
+    df=pd.read_csv(datos)
+    df["Fecha"] = pd.to_datetime(df.Fecha,format='mixed')
+    df["Badlar"]=df["Badlar"].str.strip()
+    df["Badlar"] = pd.to_numeric(df["Badlar"].replace(",", ".", regex=True))
+    df["CER"]=df["CER"].str.strip()
+    df["CER"] = pd.to_numeric(df["CER"].replace(",", ".", regex=True))
+    df["UVA"]=df["UVA"].str.strip()
+    df["UVA"] = pd.to_numeric(df["UVA"].replace(",", ".", regex=True))
+    plt.style.use('ggplot')
+    df.plot("Fecha", ["Badlar","CER","UVA"],
+            kind="line",
+            figsize=(10,6),
+            color=["GREEN","darkblue","RED"],
+            title="ANÁLISIS DE TASAS",
+            ylabel = "Tasa",
+            xlabel = "Fecha",
+            mouseover=True)
+    grafico=plt.show()
+    return render(request,'Cargas/imagen.html',{'grafico': grafico})
 
 @login_required
 def secciones(request):
@@ -103,15 +155,17 @@ def carga_cobranzas(request):
     """Permite a un usuario cargar cobranzas"""
     if request.method != 'POST':
         # Sin datos cargados; crear una planilla en blanco.
-        form= CobranzasForm()
+        form= CobranzasForm(owner=request.user)
     else:
         # Datos cargados a través de POST, procesarlos.
-        form= CobranzasForm(data=request.POST)
+        form= CobranzasForm(data=request.POST,owner=request.user)
         if form.is_valid():
             nueva_cobranza= form.save(commit=False)
             nueva_cobranza.owner = request.user
             form.save()
             return redirect('Cargas:carga_cobranzas')
+        else:
+            form = CobranzasForm(owner=request.user)
     # Muestra una planilla en blanco o inválida.
     context= {'form': form}
     return render(request,'Cargas/carga_cobranzas.html', context )
