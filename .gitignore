@@ -5,3 +5,4 @@ Cargas/__pycache__/__init__.cpython-311.pyc
 *.jpeg
 django*
 venv*
+*.sqlite3

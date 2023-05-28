@@ -1,0 +1,26 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+    <p>Pacientes</p>
+    
+{% for paciente in pacientes %}
+ <div class= "card mb">
+  <h4 class="card-header">
+
+    <small>
+        {{ paciente.Nombre}}</small>
+        </h4>
+
+    <div class="card-body">
+    <ul>
+        <li>DNI: {{paciente.DNI}}</li>
+        <li>Tel: {{paciente.Teléfono}}</li>
+        <li>E-mail: {{paciente.E_mail}}</li>
+        <li>Obra Social/Prepaga: {{paciente.Obra_Social_Prepaga}}</li>
+    </ul>
+        </div>
+    {%empty%}
+    <li>Agregar paciente.</li>
+    {% endfor %}
+    <a href="{% url 'Cargas:carga_pacientes' %}">Agregar paciente</a>
+</div>
+{% endblock content %}

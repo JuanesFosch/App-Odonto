@@ -1,0 +1,9 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+<p>Agregar un paciente:</p>
+    <form action="{% url 'Cargas:carga_pacientes' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
+        <button name="submit">Cargar paciente</button>
+    </form>
+{% endblock content %}

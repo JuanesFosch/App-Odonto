@@ -34,6 +34,10 @@ INSTALLED_APPS = [
 
     # Agregadas
     "Cargas",
+    "Usuarios",
+    # Aplicaciones de terceros
+    'bootstrap4',
+
     # Default Apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,3 +129,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Mis configuraciones
+LOGIN_URL = 'Usuarios:login'
+
+# Configuraciones de Heroku.
+import django_heroku
+django_heroku.settings(locals())

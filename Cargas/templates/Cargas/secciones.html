@@ -1,0 +1,39 @@
+<!--Este archivo de la de formato específico a la página Secciones -->
+
+{% extends "Cargas/base.html" %}
+
+{% block page_header %}
+    <h4>Seleccionar sección:</h4>
+
+{% endblock page_header %}
+
+
+{% block content %}
+<h4>Seleccionar sección:</h4>
+<h4>Consulta de datos</h4>
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-left">
+        <div class="list-group list-group-checkable d-grid gap-2 border-0">
+          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios1" value="" >
+          <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1" onclick="window.location='{% url 'Cargas:pacientes' %}'">
+            Pacientes
+            <span class="d-block small opacity-50">Consulta de información de pacientes</span>
+          </label>
+      
+          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios2" value="">
+          <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios2" onclick="window.location='{% url 'Cargas:presupuestos_y_cobranzas' %}'">
+            Presupuestos y Cobranzas
+            <span class="d-block small opacity-50">Consulta de información de presupuestos y cobranzas</span>
+          </label>
+      
+          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios3" value="disabled">
+            Cobranzas
+            <span class="d-block small opacity-50">Quedó del antiguo formato, por las dudas</span>
+          </label>
+
+          </label>
+        </div>
+      </div>
+
+    
+        {% endblock content %}
+

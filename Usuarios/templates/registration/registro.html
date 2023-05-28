@@ -1,0 +1,13 @@
+{% extends "Cargas/base.html" %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'Usuarios:registro' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button name="submit">Registrarse</button>
+        <input type="hidden" name="next" value="{% url 'Cargas:index' %}" />
+    </form>
+
+{% endblock content %}

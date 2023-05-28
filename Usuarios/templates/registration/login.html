@@ -1,0 +1,16 @@
+{% extends "Cargas/base.html" %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p>Nombre de usuario y contraseña incorrectos. Intentar de vuelta.</p> 
+
+    {% endif %}
+    <form method="post" action="{% url 'Usuarios:login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Ingresar</button>
+        <input type="hidden" name="next"
+            value="{% url 'Cargas:index' %}" />
+    </form>
+{% endblock content %}

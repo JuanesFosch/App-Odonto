@@ -1,0 +1,62 @@
+<!--Este archivo es el que se usa de base para el formato general de todas las páginas -->
+
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,
+        shrink-to-fit=no">
+  <title>App Odonto</title>
+   <!---Se aplica el formato para distintos elementos-->
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">  
+  <link href="{% static 'list-groups.css' %}" rel="stylesheet">
+  <link href="{% static 'estilos.css' %}" rel="stylesheet">
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+   
+</head>
+
+<body>
+<!--Esta sección le da formato a la barra de navegación superior -->
+    
+
+<nav id="navbar" class="navbar navbar-expand-md navbar-light  mb-4 border" >
+    <h6>App Odonto</h6>
+   
+      <!---Esto hace que cambie el formato de la barra según cambia el tamaño de la ventana-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span></button>
+      
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <a class="nav-link" href="{% url 'Cargas:index'%}">
+        Home</a>
+      <a class="nav-link" href="{% url 'Cargas:secciones'%}">
+        Secciones</a>
+      {% if user.is_authenticated  %}
+        Hola, {{ user.username}}.
+        <a class="nav-link" href="{% url 'Usuarios:logout'%}">Salir</a>
+      {% else %}  
+        <a class="nav-link" href="{% url 'Usuarios:registro'%}">Registrarse</a>
+        <a class="nav-link" href="{% url 'Usuarios:login'%}">Ingresar</a>
+      {% endif %}
+    </div>
+</nav>
+<!--Esta sección le da formato general a la sección central de las páginas -->
+  <main role="main" class="container" >
+    <div class="pb-2 mb-2 border-bottom" > 
+
+    </div>
+    <div>
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+  </main>
+
+</body>  
+
+</html>
