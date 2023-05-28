@@ -1,8 +1,9 @@
-Cargas/__pycache__/__init__.cpython-311.pyc
+Cargas/__pycache__/__init__.cpyt*hon-311.pyc
 
-*.txt
+
 *.pyc
 *.jpeg
 django*
 venv*
 *.sqlite3
+*.rtf
