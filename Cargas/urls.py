@@ -8,8 +8,6 @@ app_name = 'Cargas'
 urlpatterns = [
     # Home page
     path('', views.index, name='index'),
-    # Página de prueba para mostrar imágenes.
-    path('imagen', views.prueba_imagen, name='imagen'),
     # Página que muestra todas las secciones para acceder
     path('secciones', views.secciones, name='secciones'),
     # Página con la sección 'Pacientes'
@@ -25,3 +23,7 @@ urlpatterns = [
     # Página con la sección 'Carga de Cobranzas'
     path('carga_cobranzas', views.carga_cobranzas, name='carga_cobranzas'),
 ]   
+
+
+# Página de prueba para mostrar imágenes.
+    #path('imagen', views.prueba_imagen, name='imagen'),
