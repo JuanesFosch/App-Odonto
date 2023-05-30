@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for app-odonto on 2023-05-29T11:21:48-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "app-odonto"
+primary_region = "eze"
+console_command = "/code/manage.py shell"
+
+[env]
+  PORT = "8000"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[statics]]
+  guest_path = "/code/static"
+  url_prefix = "/static/"
+
+[deploy]
+  release_command = "python manage.py migrate --noinput"

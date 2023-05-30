@@ -5,5 +5,4 @@ Cargas/__pycache__/__init__.cpyt*hon-311.pyc
 *.jpeg
 django*
 venv*
-*.sqlite3
 *.rtf
