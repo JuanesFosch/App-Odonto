@@ -30,7 +30,7 @@ XOR (^)
 
 
 #------------------------------------------------------------------
-#      Carga rápida de datos
+#      Carga rápida de datos - Sirve para uso inicial
 #------------------------------------------------------------------
 pacientes = [
     Pacientes.objects.create(Nombre="Juan Fosch",DNI=30231654,Teléfono=261549874,E_mail='mail@mail.com',Obra_Social_Prepaga='Sancor'),
