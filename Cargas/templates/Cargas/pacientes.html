@@ -1,7 +1,8 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
     <p>Pacientes</p>
-    
+
+    <h4><a href="{% url 'Cargas:carga_pacientes' %}">Agregar paciente</a></h4>
 {% for paciente in pacientes %}
  <div class= "card mb">
   <h4 class="card-header">
@@ -21,6 +22,5 @@
     {%empty%}
     <li>Agregar paciente.</li>
     {% endfor %}
-    <a href="{% url 'Cargas:carga_pacientes' %}">Agregar paciente</a>
 </div>
 {% endblock content %}

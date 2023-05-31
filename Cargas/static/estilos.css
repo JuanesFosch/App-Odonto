@@ -14,7 +14,7 @@ li {
   color: #1977cc;
 }
 h4 {
-    color:  rgb(143, 8, 8);
+    color:  #199ccc ;
 }
 h1,
 h6 {
@@ -33,6 +33,9 @@ a {color:   #1977cc
           font-weight: bold;
 }
 
+.align-right {
+  margin-left: auto;
+}
 
 .lead {
   color:   #000000 !important;
