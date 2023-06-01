@@ -10,18 +10,23 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Página que muestra todas las secciones para acceder
     path('secciones', views.secciones, name='secciones'),
-    # Página con la sección 'Pacientes'
-    path('pacientes', views.pacientes, name='pacientes'),
     # Página con la sección 'Carga de Pacientes'
     path('carga_pacientes', views.carga_pacientes, name='carga_pacientes'),
-    # Página con las secciones 'Presupuestos y Cobranzas'
-    path('presupuestos_y_cobranzas', views.presupuestos_y_cobranzas, name='presupuestos_y_cobranzas'),
+    # Página con la sección 'Pacientes'
+    path('pacientes', views.pacientes, name='pacientes'),
+    # Página con la sección 'Editar Pacientes'
+    path('editar_pacientes/<int:dni>/', views.editar_pacientes, name='editar_pacientes'),
     # Página con la sección 'Carga de Presupuestos'
     path('carga_presupuestos', views.carga_presupuestos, name='carga_presupuestos'),
-    # Página con la sección 'Cobranzas'
-    #path('cobranzas', views.cobranzas, name='cobranzas'),
     # Página con la sección 'Carga de Cobranzas'
     path('carga_cobranzas', views.carga_cobranzas, name='carga_cobranzas'),
+    # Página con las secciones 'Presupuestos y Cobranzas'
+    path('presupuestos_y_cobranzas', views.presupuestos_y_cobranzas, name='presupuestos_y_cobranzas'),
+    # Página con la sección 'Editar Presupuestos'
+    path('editar_presupuestos/<int:orden>/', views.editar_presupuestos, name='editar_presupuestos'),
+    # Página con la sección 'Editar Cobranzas'
+    path('editar_cobranzas/<int:comprobante>', views.editar_cobranzas, name='editar_cobranzas'),
+    
 ]   
 
 

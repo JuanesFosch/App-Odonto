@@ -3,38 +3,35 @@
 {% extends "Cargas/base.html" %}
 
 {% block page_header %}
-    <h4 >Seleccionar sección:</h4>
+    <h1 >Seleccionar sección:</h1>
 
 {% endblock page_header %}
 
 
 {% block content %}
-<h4>Seleccionar sección:</h4>
-<h4 style="color: var(--bs-gray-400)"  >Dentro de cada sección se pueden consultar y agregar datos.</h4>
-    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-left">
-        <div class="list-group list-group-checkable d-grid gap-2 border-0">
-          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios1" value="" >
-          <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1" onclick="window.location='{% url 'Cargas:pacientes' %}'">
-            Pacientes
-            <span class="d-block small opacity-50">Carga y consulta de información de pacientes</span>
-          </label>
+<h2 style="color:  #199ccc">Seleccionar sección:</h2>
+  <h3 style="color: var(--bs-gray-400)"  >Dentro de cada sección se pueden consultar y agregar datos.</h3>
+      <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-left">
+          <div class="list-group list-group-checkable d-grid gap-2 border-0">
+            <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios1" value="" >
+            <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1" onclick="window.location='{% url 'Cargas:pacientes' %}'">
+              Pacientes
+              <span class="d-block small opacity-50">Carga y consulta de información de pacientes</span>
+            </label>
       
-          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios2" value="">
-          <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios2" onclick="window.location='{% url 'Cargas:presupuestos_y_cobranzas' %}'">
-            Presupuestos y Cobranzas
-            <span class="d-block small opacity-50">Carga y consulta de información de presupuestos y cobranzas</span>
-          </label>
-      
-          <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios3" value="">
-          <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios3">  
-            Tratamientos
-            <span class="d-block small opacity-50">Carga y consulta de información de tratamientos propios y tratamientos según Obras Sociales y Prepagas</span>
-          </label>
-
-
-        </div>
+            <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios2" value="">
+            <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios2" onclick="window.location='{% url 'Cargas:presupuestos_y_cobranzas' %}'">
+              Presupuestos y Cobranzas
+              <span class="d-block small opacity-50">Carga y consulta de información de presupuestos y cobranzas</span>
+            </label>
+        
+            <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios3" value="">
+            <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios3">  
+              Tratamientos
+              <span class="d-block small opacity-50">Carga y consulta de información de tratamientos propios y tratamientos según Obras Sociales y Prepagas</span>
+            </label>
+         </div>
       </div>
 
-    
-        {% endblock content %}
+{% endblock content %}
 

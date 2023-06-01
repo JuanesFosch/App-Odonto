@@ -44,7 +44,66 @@ def pacientes(request):
     pacientes= Pacientes.objects.filter(owner=request.user)
     context= {'pacientes':pacientes}
     return render(request, 'Cargas/pacientes.html', context)
+
+@login_required
+def editar_pacientes(request, dni):
+    """Permite editar los datos de un paciente""" 
+    paciente_dni= Pacientes.objects.get(DNI=dni)
+    nombre= paciente_dni.Nombre
     
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current entry.
+        form = PacientesForm(instance=paciente_dni)
+    else:
+        # POST data submitted; process data.
+        form = PacientesForm(instance=paciente_dni,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:pacientes')
+    
+    context = {'paciente_dni': paciente_dni, 'nombre': nombre, 'form': form}
+    return render(request, 'Cargas/editar_pacientes.html', context)
+    
+
+@login_required
+def carga_presupuestos(request):
+    """Permite a un usuario cargar presupuestos"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= PresupuestosForm(owner=request.user)
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= PresupuestosForm(data=request.POST,owner=request.user)
+        if form.is_valid():
+            nuevo_presupuesto= form.save(commit=False)
+            nuevo_presupuesto.owner = request.user
+            form.save()
+            return redirect('Cargas:carga_presupuestos')
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_presupuestos.html', context )
+
+@login_required
+def carga_cobranzas(request):
+    """Permite a un usuario cargar cobranzas"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= CobranzasForm(owner=request.user)
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= CobranzasForm(data=request.POST,owner=request.user)
+        if form.is_valid():
+            nueva_cobranza= form.save(commit=False)
+            nueva_cobranza.owner = request.user
+            form.save()
+            return redirect('Cargas:carga_cobranzas')
+        else:
+            form = CobranzasForm(owner=request.user)
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_cobranzas.html', context )
+
+
 @login_required
 def presupuestos_y_cobranzas(request):
     """Muestra las secciones Presupuestos y Cobranzas"""
@@ -84,40 +143,46 @@ def presupuestos_y_cobranzas(request):
     context['context_presupuestos'] = context_presupuestos
     return render(request, 'Cargas/presupuestos_y_cobranzas.html', context)
         
-@login_required
-def carga_presupuestos(request):
-    """Permite a un usuario cargar presupuestos"""
-    if request.method != 'POST':
-        # Sin datos cargados; crear una planilla en blanco.
-        form= PresupuestosForm(owner=request.user)
-    else:
-        # Datos cargados a través de POST, procesarlos.
-        form= PresupuestosForm(data=request.POST,owner=request.user)
-        if form.is_valid():
-            nuevo_presupuesto= form.save(commit=False)
-            nuevo_presupuesto.owner = request.user
-            form.save()
-            return redirect('Cargas:carga_presupuestos')
-    # Muestra una planilla en blanco o inválida.
-    context= {'form': form}
-    return render(request,'Cargas/carga_presupuestos.html', context )
 
 @login_required
-def carga_cobranzas(request):
-    """Permite a un usuario cargar cobranzas"""
+def editar_presupuestos(request, orden):
+    """Permite editar los datos de un presupuesto""" 
+    número= Presupuestos.objects.get(Número_de_orden=orden)
+    owner_id= número.owner_id
+    
     if request.method != 'POST':
-        # Sin datos cargados; crear una planilla en blanco.
-        form= CobranzasForm(owner=request.user)
+        # Initial request; pre-fill form with the current entry.
+        form = PresupuestosForm(instance=número, owner=owner_id)
     else:
-        # Datos cargados a través de POST, procesarlos.
-        form= CobranzasForm(data=request.POST,owner=request.user)
+        # POST data submitted; process data.
+        form = PresupuestosForm(instance=número,owner=owner_id,data=request.POST)
         if form.is_valid():
-            nueva_cobranza= form.save(commit=False)
-            nueva_cobranza.owner = request.user
             form.save()
-            return redirect('Cargas:carga_cobranzas')
-        else:
-            form = CobranzasForm(owner=request.user)
-    # Muestra una planilla en blanco o inválida.
-    context= {'form': form}
-    return render(request,'Cargas/carga_cobranzas.html', context )
+            return redirect('Cargas:presupuestos_y_cobranzas')
+    
+    context = {'número': número, 'form': form}
+    return render(request, 'Cargas/editar_presupuestos.html', context)
+
+
+@login_required
+def editar_cobranzas(request, comprobante):
+    """Permite editar los datos de una cobranza""" 
+    número= Cobranzas.objects.get(Número_de_comprobante=comprobante)
+    owner_id= número.owner_id
+   
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current entry.
+        form = CobranzasForm(instance=número, owner=owner_id)
+    else:
+        # POST data submitted; process data.
+        form = CobranzasForm(instance=número,owner=owner_id,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:presupuestos_y_cobranzas')
+    
+    context = {'número': número, 'form': form}
+    return render(request, 'Cargas/editar_cobranzas.html', context)
+
+
+
+

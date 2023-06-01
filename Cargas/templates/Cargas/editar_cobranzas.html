@@ -1,0 +1,9 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+<p>Editar una cobranza:</p>
+    <form action="{% url 'Cargas:editar_cobranzas' número.Número_de_comprobante %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
+        <button name="submit">Guardar cambios</button>
+    </form>
+{% endblock content %}

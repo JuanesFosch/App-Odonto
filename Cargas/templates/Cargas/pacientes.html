@@ -1,17 +1,17 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-    <p>Pacientes</p>
+    <h1 style="color:  #199ccc">Pacientes</h1>
 
-    <h4><a href="{% url 'Cargas:carga_pacientes' %}">Agregar paciente</a></h4>
+    <h4 style="font-size: 1.2rem"><a href="{% url 'Cargas:carga_pacientes' %}">Agregar paciente</a></h4>
 {% for paciente in pacientes %}
- <div class= "card mb">
+ <div class= "card mb" style="width: 18rem;" >
   <h4 class="card-header">
 
-    <small>
+    <small >
         {{ paciente.Nombre}}</small>
         </h4>
 
-    <div class="card-body">
+    <div class="card-body" >
     <ul>
         <li>DNI: {{paciente.DNI}}</li>
         <li>Tel: {{paciente.Teléfono}}</li>
@@ -19,8 +19,10 @@
         <li>Obra Social/Prepaga: {{paciente.Obra_Social_Prepaga}}</li>
     </ul>
         </div>
+    <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_pacientes' paciente.DNI %}">Editar paciente</a></h4>    
     {%empty%}
     <li>Agregar paciente.</li>
     {% endfor %}
 </div>
+
 {% endblock content %}
