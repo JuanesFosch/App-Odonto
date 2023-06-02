@@ -166,15 +166,15 @@ def editar_cobranzas(request, comprobante):
     """Permite editar los datos de una cobranza""" 
     número= Cobranzas.objects.get(Número_de_comprobante=comprobante)
     owner_id= número.owner_id
-   
+    
     if request.method != 'POST':
         # # Request inicial; plantilla pre-llenada con la cobranza actual.
-        form = CobranzasForm(instance=número, owner=owner_id)
+        form = CobranzasForm(instance=número,owner=owner_id)
     else:
         # POST data submitted; process data.
         form = CobranzasForm(instance=número,owner=owner_id,data=request.POST)
         if form.is_valid():
-            form.save()
+            form.save(editar_cobranza_activa=True)
             return redirect('Cargas:presupuestos_y_cobranzas')
     
     context = {'número': número, 'form': form}

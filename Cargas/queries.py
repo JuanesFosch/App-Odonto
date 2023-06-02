@@ -1,4 +1,4 @@
-from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes, User
+from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes,CobranzasPresupuestos_Inter, User
 from django.db.models import Sum
 
 

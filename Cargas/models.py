@@ -101,11 +101,7 @@ class CobranzasPresupuestos_Inter(models.Model):
     presupuesto = models.ForeignKey(Presupuestos, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
-
-    
-
-
-    
+   
 
 
     
