@@ -52,7 +52,7 @@
         <li>Fecha de cobro: {{ item.cobranza.Fecha_de_cobro|date:'d/M/Y' }}</li>
         <li>Cuánto pagó: {{ item.cobranza.Cuánto_pagó }}</li>
     </ul>
-        </div>
+  </div>
  </div>
   <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_cobranzas' item.cobranza.Número_de_comprobante %}">Editar cobranza</a></h4> 
     {%empty%}

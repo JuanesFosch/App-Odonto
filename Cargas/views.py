@@ -5,11 +5,8 @@ from django.db.models import Sum
 
 # Create your views here.
 
-
-
-
 from .models import *
-from .forms import PacientesForm, PresupuestosForm, CobranzasForm
+from .forms import PacientesForm, PresupuestosForm, CobranzasForm, TratamientosPropiosForm,TratamientosOs_PrepagasForm
 
 def index(request):
     """El home para App Odonto"""
@@ -52,10 +49,10 @@ def editar_pacientes(request, dni):
     nombre= paciente_dni.Nombre
     
     if request.method != 'POST':
-        # Initial request; pre-fill form with the current entry.
+        # Request inicial; plantilla pre-llenada con el paciente actual.
         form = PacientesForm(instance=paciente_dni)
     else:
-        # POST data submitted; process data.
+        # Datos de POST procesados y enviados.
         form = PacientesForm(instance=paciente_dni,data=request.POST)
         if form.is_valid():
             form.save()
@@ -151,10 +148,10 @@ def editar_presupuestos(request, orden):
     owner_id= número.owner_id
     
     if request.method != 'POST':
-        # Initial request; pre-fill form with the current entry.
+        # Request inicial; plantilla pre-llenada con el presupuesto actual.
         form = PresupuestosForm(instance=número, owner=owner_id)
     else:
-        # POST data submitted; process data.
+        # Datos de POST procesados y enviados.
         form = PresupuestosForm(instance=número,owner=owner_id,data=request.POST)
         if form.is_valid():
             form.save()
@@ -171,7 +168,7 @@ def editar_cobranzas(request, comprobante):
     owner_id= número.owner_id
    
     if request.method != 'POST':
-        # Initial request; pre-fill form with the current entry.
+        # # Request inicial; plantilla pre-llenada con la cobranza actual.
         form = CobranzasForm(instance=número, owner=owner_id)
     else:
         # POST data submitted; process data.
@@ -184,5 +181,93 @@ def editar_cobranzas(request, comprobante):
     return render(request, 'Cargas/editar_cobranzas.html', context)
 
 
+@login_required
+def carga_tratamientos_propios(request):
+    """Permite a un usuario cargar tratamientos propios"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= TratamientosPropiosForm(owner=request.user)
+    else:
+        # Datos de POST procesados y enviados.
+        form= TratamientosPropiosForm(data=request.POST,owner=request.user)
+        if form.is_valid():
+            nuevo_tratamiento= form.save(commit=False)
+            nuevo_tratamiento.owner = request.user
+            form.save()
+            return redirect('Cargas:carga_tratamientos_propios')
+        else:
+            form = TratamientosPropiosForm(owner=request.user)
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_tratamientos_propios.html', context )
+
+@login_required
+def carga_tratamientos_os_prepagas(request):
+    """Permite a un usuario cargar tratamientos de las obras sociales y prepagas"""
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= TratamientosOs_PrepagasForm(owner=request.user)
+    else:
+        # Datos de POST procesados y enviados.
+        form= TratamientosOs_PrepagasForm(data=request.POST,owner=request.user)
+        if form.is_valid():
+            nuevo_tratamiento= form.save(commit=False)
+            nuevo_tratamiento.owner = request.user
+            form.save()
+            return redirect('Cargas:carga_tratamientos_os_prepagas')
+        else:
+            form = TratamientosOs_PrepagasForm(owner=request.user)
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_tratamientos_os_prepagas.html', context )
+
+
+@login_required
+def tratamientos(request):
+    """Muestra la sección Tratamientos"""
+    propios= Tratamientos_Propios.objects.filter(owner=request.user)
+    os_prepagas=Tratamientos_ObrasSociales_Prepagas.objects.filter(owner=request.user)
+    context= {'propios': propios, 'os_prepagas': os_prepagas}
+    return render(request, 'Cargas/tratamientos.html', context)
+
+
+@login_required
+def editar_tratamientos_propios(request, código):
+    """Permite editar los datos de un tratamiento propio""" 
+    código_propio= Tratamientos_Propios.objects.get(Código_interno=código)
+    owner_id= código_propio.owner_id
+    
+    if request.method != 'POST':
+        # Request inicial; plantilla pre-llenada con el tratamiento actual.
+        form = TratamientosPropiosForm(instance=código_propio,owner=owner_id)
+    else:
+        # Datos de POST procesados y enviados.
+        form = TratamientosPropiosForm(instance=código_propio,owner=owner_id,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:tratamientos')
+    
+    context = {'código_propio': código_propio, 'form': form}
+    return render(request, 'Cargas/editar_tratamientos_propios.html', context)
+
+
+@login_required
+def editar_tratamientos_os_prepagas(request, código):
+    """Permite editar los datos de un tratamiento de obra social o prepaga""" 
+    código= Tratamientos_ObrasSociales_Prepagas.objects.get(Código=código)
+    owner_id= código.owner_id
+    
+    if request.method != 'POST':
+        # Request inicial; plantilla pre-llenada con el tratamiento actual.
+        form = TratamientosOs_PrepagasForm(instance=código,owner=owner_id)
+    else:
+        # Datos de POST procesados y enviados.
+        form = TratamientosOs_PrepagasForm(instance=código,owner=owner_id,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:tratamientos')
+    
+    context = {'código': código, 'form': form}
+    return render(request, 'Cargas/editar_tratamientos_os_prepagas.html', context)
 
 

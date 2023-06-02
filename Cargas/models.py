@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 
-
 class Pacientes(models.Model):
     """Modelo que crea la tabla 'Cargas_pacientes' en la BD y la interacción en el sitio para ingresar datos."""
     Nombre= models.CharField(max_length=40, blank=False)
@@ -13,24 +12,24 @@ class Pacientes(models.Model):
     Obra_Social_Prepaga= models.CharField(max_length=40)    # Esto se debería poder elegir de una lista.
     owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
 
-    def __str__(self):                                      # Formateo del modelo visible en la web
+    def __str__(self):           # Formateo del modelo visible en la web
         return self.Nombre + " - DNI: " + str(self.DNI)
 
-    class Meta:                                             # Formateo del modelo visible en la web
+    class Meta:                  # Formateo del modelo visible en la web
         verbose_name_plural= "Pacientes"
         ordering = ['Nombre']
 
 
 class Tratamientos_Propios(models.Model):
     """Modelo que crea la tabla 'Cargas_Tratamientos_Propios' en la BD y la interacción en el sitio para ingresar datos."""
-    Código_interno= models.IntegerField(null=False,default=0)
-    Tratamiento= models.CharField(primary_key=True,max_length=50)
+    Código_interno= models.IntegerField(primary_key=True,null=False,default=0)
+    Tratamiento= models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
 
     def __str__(self):                                      
         return self.Tratamiento + " - " +str(self.Código_interno)
 
-    class Meta:                                             # Formateo del modelo visible en la web
+    class Meta:             # Formateo del modelo visible en la web
         verbose_name_plural= "Tratamientos Propios" 
         ordering = ['Código_interno']
 
@@ -45,7 +44,7 @@ class Tratamientos_ObrasSociales_Prepagas(models.Model):
     def __str__(self):                                      
         return self.Tratamiento + " - " +str(self.Obra_Social_Prepaga)
 
-    class Meta:                                             # Formateo del modelo visible en la web
+    class Meta:                       # Formateo del modelo visible en la web
         verbose_name_plural= "Tratamientos Obras Sociales y Prepagas" 
         ordering = ['Tratamiento']
         
@@ -71,10 +70,10 @@ class Presupuestos(models.Model):
     #Forma de pago
     #Cuotas
 
-    def __str__(self):                                          # Formateo del modelo visible en la web
+    def __str__(self):                      # Formateo del modelo visible en la web
         return "Número de orden: " + str(self.Número_de_orden) 
 
-    class Meta:                                                 # Formateo del modelo visible en la web
+    class Meta:                             # Formateo del modelo visible en la web
         verbose_name_plural= "Presupuestos"
         ordering = ['Número_de_orden']     
 
@@ -87,12 +86,11 @@ class Cobranzas(models.Model):
     Fecha_de_cobro= models.DateField(auto_now_add=True,blank=True)
     Cuánto_pagó = models.IntegerField(blank=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
-    # Formateo del modelo visible en la web
-    def __str__(self):                                          
+    
+    def __str__(self):              # Formateo del modelo visible en la web                                
         return "Número de comprobante: " + str(self.Número_de_comprobante)+" - Número_de_orden: " + str(self.Número_de_orden)
     
-    # Formateo del modelo visible en la web
-    class Meta:                                                 
+    class Meta:                     # Formateo del modelo visible en la web                          
         verbose_name_plural= "Cobranzas"
         ordering = ['Número_de_comprobante']
 

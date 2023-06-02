@@ -1,0 +1,9 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+<p>Agregar un tratamiento:</p>
+    <form action="{% url 'Cargas:carga_tratamientos_os_prepagas' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
+        <button name="submit">Cargar tratamiento</button>
+    </form>
+{% endblock content %}
