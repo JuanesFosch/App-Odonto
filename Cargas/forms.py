@@ -13,12 +13,11 @@ class PacientesForm(forms.ModelForm):
 class PresupuestosForm(forms.ModelForm):
     """Plantilla para cargar un presupuesto"""
     class Meta:
-
         model= Presupuestos
         fields =['Número_de_orden','Tratamiento_1','Tratamiento_2','Tratamiento_3','Monto']
         labels = {'text': ''} # Esto transforma a la lista 'fields' en diccionario.
 
-    def __init__(self, owner, *args, **kwargs):
+    def __init__(self, owner ,*args, **kwargs):
         super(PresupuestosForm, self).__init__(*args, **kwargs)
 
         # Filtrar las opciones del Paciente_Dni según el usuario actual
@@ -28,6 +27,16 @@ class PresupuestosForm(forms.ModelForm):
         presu_actual=Presupuestos.objects.values_list('Número_de_orden', flat=True).last()
         presu_actual += 1
         self.fields['Número_de_orden'] = forms.IntegerField(initial=presu_actual) # Se modifica el par llave-valor 'Número de orden' del diccionario 'fields'
+           
+        # Buscar los tratamientos para elegir
+        tratamientos_propios= Tratamientos_Propios.objects.filter(owner=owner).values_list('Tratamiento', flat=True)
+        propios_selección=[(item, item) for item in tratamientos_propios]
+        propios_selección.append(('',''))
+        propios_selección=tuple(propios_selección)
+        self.fields['Tratamiento_1'] = forms.ChoiceField(choices=propios_selección,required=False)
+        self.fields['Tratamiento_2'] = forms.ChoiceField(choices=propios_selección,required=False)
+        self.fields['Tratamiento_3'] = forms.ChoiceField(choices=propios_selección,required=False)
+
 
     def save(self, commit=True):
         # Se toman los campos de la plantilla para cargar en la tabla 'Presupuestos'
@@ -69,7 +78,7 @@ class CobranzasForm(forms.ModelForm):
         
         # Se crea una instancia de la tabla intermedia.
         intermedia= CobranzasPresupuestos_Inter()
-        
+
         if editar_cobranza_activa == False:    # Si sólo se va a editar un registro en Cobranzas, no quiero que se agregue nada a la tabla intermedia, porque genera duplicados.
             intermedia.cobranzas = fields_cobra  # Como se va a agregar un registro a Cobranzas, se permite que la tabla intermedia también lo haga.
         
@@ -78,7 +87,7 @@ class CobranzasForm(forms.ModelForm):
         presupuesto_id_inter = Presupuestos.objects.get(Número_de_orden=num_orden)
         intermedia.presupuesto = presupuesto_id_inter
         
-        #---CREAR UNA CONDICIÓN DE QUE SI ESTA ACTIVA LA FUNCION EDITAR COBRANZAS, QUE NO CARGE NADA A LA TABLA INTERMEDIA
+        #---CONDICIÓN DE QUE SI ESTA ACTIVA LA FUNCION EDITAR COBRANZAS, QUE NO CARGE NADA A LA TABLA INTERMEDIA
         if commit:
             fields_cobra.save()
             if editar_cobranza_activa == False: 

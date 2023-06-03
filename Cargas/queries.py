@@ -9,6 +9,17 @@ for valor in Propios:
     print(valor.Tratamiento)
 
 valores=Propios.values_list('Código_interno', flat=True)
+
+owner=1
+tratamientos_propios= Tratamientos_Propios.objects.filter(owner=owner).values_list('Tratamiento', flat=True)
+
+
+choices=[(item, item) for item in tratamientos_propios]
+choices=tuple(choices)
+
+
+
+
 #------------------------------------------------------------------
 #      Ejemplos de queries    ( de QuerySet API references )
 #------------------------------------------------------------------

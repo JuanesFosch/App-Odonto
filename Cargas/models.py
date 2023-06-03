@@ -55,15 +55,11 @@ class Presupuestos(models.Model):
     Número_de_orden= models.IntegerField(primary_key=True,auto_created=True,default=0000,blank=False)  
     Fecha= models.DateField(auto_now_add=True,blank=True)
     # Acá van campos con los tipos de tratamientos consultados a la tabla de tratamientos propia.
-    TRATAMIENTOS= ( 
-            ('Muelas','Muelas'),
-            ('Encías','Encías'),
-            ('Implante','Implante')
-        )
+    
     # ------- 
-    Tratamiento_1= models.CharField(max_length=100,blank=True,choices=TRATAMIENTOS)  # Para tratamientos por particular
-    Tratamiento_2= models.CharField(max_length=100,blank=True,choices=TRATAMIENTOS)  # Para tratamientos por particular  
-    Tratamiento_3= models.CharField(max_length=100,blank=True,choices=TRATAMIENTOS)  # Para tratamientos por particular
+    Tratamiento_1= models.CharField(max_length=100,blank=True)  # Para tratamientos por particular
+    Tratamiento_2= models.CharField(max_length=100,blank=True)  # Para tratamientos por particular  
+    Tratamiento_3= models.CharField(max_length=100,blank=True) # Para tratamientos por particular
     # Acá una bandera que muestre si el tratamiento pasa por obra social o particular.
     Monto = models.IntegerField(blank=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,default=1)

@@ -65,6 +65,7 @@ def editar_pacientes(request, dni):
 @login_required
 def carga_presupuestos(request):
     """Permite a un usuario cargar presupuestos"""
+    
     if request.method != 'POST':
         # Sin datos cargados; crear una planilla en blanco.
         form= PresupuestosForm(owner=request.user)
@@ -150,14 +151,15 @@ def editar_presupuestos(request, orden):
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el presupuesto actual.
         form = PresupuestosForm(instance=número, owner=owner_id)
+        form2=BanderaParticularForm(owner=request.user)
     else:
         # Datos de POST procesados y enviados.
         form = PresupuestosForm(instance=número,owner=owner_id,data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('Cargas:presupuestos_y_cobranzas')
-    
-    context = {'número': número, 'form': form}
+    form2=BanderaParticularForm(owner=request.user)
+    context = {'número': número, 'form': form,'form2':form2}
     return render(request, 'Cargas/editar_presupuestos.html', context)
 
 
