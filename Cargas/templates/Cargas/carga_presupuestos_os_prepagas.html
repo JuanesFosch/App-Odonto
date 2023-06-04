@@ -1,0 +1,28 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+<p>Agregar un presupuesto:</p>
+    <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post'>
+        {% csrf_token %}
+        <p> <!---Muestra los campos del modelo a llenar en forma de párrafos y en orden pesonalizado-->
+            {{ form.Paciente_Dni.label_tag }} {{ form.Paciente_Dni }}
+        </p>
+        <p>
+            {{ form.Número_de_orden.label_tag }} {{ form.Número_de_orden }}
+        </p>
+            
+        <p>
+            {{ form.Tratamiento_1.label_tag }} {{ form.Tratamiento_1 }}
+        </p>
+        <p>
+            {{ form.Tratamiento_2.label_tag }} {{ form.Tratamiento_2 }}
+        </p>
+        <p>
+            {{ form.Tratamiento_3.label_tag }} {{ form.Tratamiento_3 }}
+        </p>
+        <p>
+            {{ form.Monto.label_tag }} {{ form.Monto }}
+        </p>  
+        
+        <button name="submit">Cargar presupuesto</button>
+    </form>
+{% endblock content %}

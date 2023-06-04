@@ -24,6 +24,9 @@ urlpatterns = [
     # Página con la sección 'Carga de Presupuestos'
     path('carga_presupuestos', views.carga_presupuestos, name='carga_presupuestos'),
 
+    # Página con la sección 'Carga de Presupuestos Obras Sociales y Prepagas'
+    path('carga_presupuestos_os_prepagas', views.carga_presupuestos_os_prepagas, name='carga_presupuestos_os_prepagas'),
+
     # Página con la sección 'Carga de Cobranzas'
     path('carga_cobranzas', views.carga_cobranzas, name='carga_cobranzas'),
 

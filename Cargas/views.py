@@ -6,7 +6,7 @@ from django.db.models import Sum
 # Create your views here.
 
 from .models import *
-from .forms import PacientesForm, PresupuestosForm, CobranzasForm, TratamientosPropiosForm,TratamientosOs_PrepagasForm
+from .forms import PacientesForm, PresupuestosForm,Presupuestos_Os_Prepagas_Form, CobranzasForm, TratamientosPropiosForm,TratamientosOs_PrepagasForm
 
 def index(request):
     """El home para App Odonto"""
@@ -82,6 +82,26 @@ def carga_presupuestos(request):
     return render(request,'Cargas/carga_presupuestos.html', context )
 
 @login_required
+def carga_presupuestos_os_prepagas(request):
+    """Permite a un usuario cargar presupuestos"""
+    
+    if request.method != 'POST':
+        # Sin datos cargados; crear una planilla en blanco.
+        form= Presupuestos_Os_Prepagas_Form(owner=request.user)
+    else:
+        # Datos cargados a través de POST, procesarlos.
+        form= Presupuestos_Os_Prepagas_Form(data=request.POST,owner=request.user)
+        if form.is_valid():
+            nuevo_presupuesto= form.save(commit=False)
+            nuevo_presupuesto.owner = request.user
+            form.save()
+            return redirect('Cargas:carga_presupuestos_os_prepagas')
+    # Muestra una planilla en blanco o inválida.
+    context= {'form': form}
+    return render(request,'Cargas/carga_presupuestos_os_prepagas.html', context )
+
+
+@login_required
 def carga_cobranzas(request):
     """Permite a un usuario cargar cobranzas"""
     if request.method != 'POST':
@@ -151,15 +171,13 @@ def editar_presupuestos(request, orden):
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el presupuesto actual.
         form = PresupuestosForm(instance=número, owner=owner_id)
-        form2=BanderaParticularForm(owner=request.user)
     else:
         # Datos de POST procesados y enviados.
         form = PresupuestosForm(instance=número,owner=owner_id,data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('Cargas:presupuestos_y_cobranzas')
-    form2=BanderaParticularForm(owner=request.user)
-    context = {'número': número, 'form': form,'form2':form2}
+    context = {'número': número, 'form': form}
     return render(request, 'Cargas/editar_presupuestos.html', context)
 
 
