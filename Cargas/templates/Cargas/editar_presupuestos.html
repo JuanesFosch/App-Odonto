@@ -1,7 +1,7 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
 <p>Editar un presupuesto:</p>
-    <form action="{% url 'Cargas:editar_presupuestos' número.Número_de_orden %}" method='post'>
+    <form action="{% url 'Cargas:editar_presupuestos' número.Número_de_orden %}" method='post' class="model-form">
         {% csrf_token %}
         <p>
             {{ form2.particular.label_tag }} {{ form2.particular }}

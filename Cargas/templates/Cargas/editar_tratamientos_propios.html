@@ -1,7 +1,7 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
 <p>Editar un tratamiento:</p>
-    <form action="{% url 'Cargas:editar_tratamientos_propios' código_propio.Código_interno %}" method='post'>
+    <form action="{% url 'Cargas:editar_tratamientos_propios' código_propio.Código_interno %}" method='post' class="model-form-cobranza">
         {% csrf_token %}
         {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
         <button name="submit">Guardar cambios</button>

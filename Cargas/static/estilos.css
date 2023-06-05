@@ -24,6 +24,13 @@
     background-color: #f9f9f9
 }
 
+.pacientes-section h4 {
+  font-size: 1.0rem;
+  margin-bottom: 10px;
+  
+}
+
+
 .tratamientos-section {
     flex: 1;
 }
@@ -31,9 +38,7 @@
 body {background-color: #ffffff ; /* usar '!important' para que haga efecto*/
 }
 
-#navbar {background-color: #e3f2fd ;
 
-}
 h1 {
   color: #199ccc;
   font-size: 2.5rem;
@@ -50,19 +55,12 @@ h2 {
   margin-bottom: 10px;
 }
 
-h4 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  
-}
 
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
-
 
  li {
   color: #1977cc;
@@ -78,6 +76,7 @@ h6 {
 }
 
  a {color:   #1977cc
+  
 }
 
 .nav-link {color: #1977cc;
@@ -117,6 +116,7 @@ h6 {
 .card h4 {
   font-size: 1.2rem;
   margin-bottom: 10px;
+ 
 }
 
 .card-body {
@@ -151,6 +151,21 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+
+/* Formato de navbar */
+
+
+#navbar {background-color:#c0d0d7  ;
+}
+.separator-link {
+  border-right: 3px solid #f9f9f9; /* Ejemplo: línea vertical como separador */
+  padding-right: 10px; /* Ejemplo: espaciado entre enlaces */
+}
+
+.separator-link:last-child {
+  border-right: none; /* Remover el separador en el último enlace */
 }
 
 
@@ -210,7 +225,204 @@ a:hover {
 }
 
 
+/* Formato de listas de Forms (planillas) */
 
+.model-form {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.model-form label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form input[type="text"],
+.model-form textarea {
+  width: 40%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form input[type="number"] {
+  width: 22%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form input[type="number"][name="Número_de_orden"]{
+  width: 7%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+}
+
+.model-form select {
+  width: 15%;
+  font-size: 20px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.model-form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.model-form button:hover {
+  background-color: #45a049;
+}
+
+
+.model-form-cobranza {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.model-form-cobranza label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form-cobranza p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form-cobranza input[type="text"],
+.model-form-cobranza textarea {
+  width: 40%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-cobranza input[type="number"] {
+  width: 15%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-cobranza input[type="number"][name="Número_de_comprobante"]{
+  width: 9%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+}
+
+.model-form-cobranza select {
+  width: 8%;
+  font-size: 20px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.model-form-cobranza button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.model-form button:hover {
+  background-color: #45a049;
+}
+
+
+.model-form-registro {
+  margin: 20px;
+  padding: 10px;
+  width: 80%;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+
+  align-self: center;
+ 
+}
+
+.model-form-registro label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form-registro p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form-registro input[type="text"],
+.model-form-registro textarea {
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.model-form-registro span[class="helptext"] {
+ 
+  font-size: 15px;
+  font-weight:500;
+  margin-bottom: 0px;
+  text-align: left;
+}
+.model-form-registro button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.model-form button:hover {
+  background-color: #45a049;
+}
 /*-------------------------------------
 --------PRUEBA-----------------*/
 

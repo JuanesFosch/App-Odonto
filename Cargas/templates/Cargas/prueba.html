@@ -1,6 +1,38 @@
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+  <title>App Odonto</title>
+   <!---Se aplica el formato para distintos elementos-->
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">  
+  <link href="{% static 'estilos.css' %}" rel="stylesheet">
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+   
+</head>
 
-{% extends "Cargas/base.html" %}
-{% block content %}
+<body>
+
+  <div class="container my-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-custom overflow-hidden text-center navbar-light border rounded-3">
+        <li class="breadcrumb-item">
+          <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'Cargas:index'%}">
+            Home
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+          <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'Cargas:secciones'%}">Secciones</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Data
+        </li>
+      </ol>
+    </nav>
+  </div>
 
 <!-- ======= Why Us Section ======= -->
 <section id="why-us" class="why-us">
@@ -55,4 +87,5 @@
     </div>
   </section><!-- End Why Us Section -->
 
-  {% endblock content %}
+</body>
+</html>

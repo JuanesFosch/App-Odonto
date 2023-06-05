@@ -1,7 +1,7 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
 <p>Agregar un tratamiento:</p>
-    <form action="{% url 'Cargas:carga_tratamientos_propios' %}" method='post'>
+    <form action="{% url 'Cargas:carga_tratamientos_propios' %}" method='post' class="model-form-cobranza">
         {% csrf_token %}
         {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
         <button name="submit">Cargar tratamiento</button>

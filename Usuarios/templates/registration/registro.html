@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <form method="post" action="{% url 'Usuarios:registro' %}">
+    <form method="post" action="{% url 'Usuarios:registro' %}" class="model-form-registro">
         {% csrf_token %}
         {{ form.as_p }}
 
