@@ -9,6 +9,9 @@ urlpatterns = [
     # Página inicial
     path('', views.index, name='index'),
 
+    # Página de prueba
+    path('prueba',views.prueba, name='prueba'),
+
     # Página que muestra todas las secciones para acceder
     path('secciones', views.secciones, name='secciones'),
 

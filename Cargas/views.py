@@ -10,7 +10,10 @@ from .forms import PacientesForm, PresupuestosForm,Presupuestos_Os_Prepagas_Form
 
 def index(request):
     """El home para App Odonto"""
-    return render(request, 'Cargas/index.html',)
+    return render(request, 'Cargas/index.html')
+
+def prueba(request):
+    return render(request,'Cargas/prueba.html')
 
 @login_required
 def secciones(request):
