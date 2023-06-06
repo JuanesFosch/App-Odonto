@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="section-container" >
-    <div class="section tratamientos-section" style="display: flex;">
-        <div class="section" style="flex: 1;">
+    <div class="section tratamientos-section " style="display: flex; justify-content: center;text-align: center; ">
+        <div class="section" style="flex: 1;  ">
             <h2>Tratamientos propios</h2>
             <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;" href="{% url 'Cargas:carga_tratamientos_propios' %}">Agregar tratamiento</a></h4>
             {% for tratamiento in propios %}
-            <div class="card">
+            <div class="card" style="justify-content: center;text-align: center;margin-left: 135px">
                 <h4>{{ tratamiento.Tratamiento }}</h4>
-                <div class="card-body">
+                <div class="card-body" style="justify-content: center;text-align: center;">
                     <ul>
                         <li>Código: {{ tratamiento.Código_interno }}</li>
                     </ul>
@@ -25,7 +25,7 @@
             <h2>Obras Sociales/Prepagas</h2>
             <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;" href="{% url 'Cargas:carga_tratamientos_os_prepagas' %}">Agregar tratamiento</a></h4>
             {% for tratamiento in os_prepagas %}
-            <div class="card">
+            <div class="card" style="justify-content: center;text-align: center;margin-left: 135px">
                 <h4>{{ tratamiento.Obra_Social_Prepaga }}</h4>
                 <div class="card-body">
                     <ul>

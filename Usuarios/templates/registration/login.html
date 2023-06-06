@@ -6,7 +6,7 @@
         <p>Nombre de usuario y contraseña incorrectos. Intentar de vuelta.</p> 
 
     {% endif %}
-    <form method="post" action="{% url 'Usuarios:login' %}" class="model-form">
+    <form method="post" action="{% url 'Usuarios:login' %}" class="model-form" style="margin-left: 25px;">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit">Ingresar</button>

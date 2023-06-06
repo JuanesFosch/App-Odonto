@@ -9,11 +9,10 @@
 
 
 {% block content %}
-<section id="secciones">
-<div class="container">
+<div class="section ">
 <h2 style="color: #199ccc">Seleccionar sección:</h2>
 <h3 style="color: var(--bs-gray-400); margin-bottom: 50px;">Dentro de cada sección se pueden consultar y agregar datos.</h3>
-<div class="d-flex flex-wrap row justify-content-start">
+<div class="d-flex flex-wrap row align-content-start" style="margin-left: 70px">
   <div class="list-group list-group-checkable d-flex border-0">
     <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios1" value="">
     <label class="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1" onclick="window.location='{% url 'Cargas:pacientes' %}'">
@@ -22,8 +21,8 @@
     </label>
   </div>
 
-  <div class="list-group list-group-checkable d-flex border-0">
-    <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios2" value="">
+  <div class="list-group list-group-checkable d-flex border-0" >
+    <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios" id="listGroupCheckableRadios2" value="" >
     <label class="list-group-item rounded-3 py-3 px-0" for="listGroupCheckableRadios2" onclick="window.location='{% url 'Cargas:presupuestos_y_cobranzas' %}'">
       Presupuestos y Cobranzas
       <span class="d-block small opacity-50">Carga y consulta de información de presupuestos y cobranzas</span>

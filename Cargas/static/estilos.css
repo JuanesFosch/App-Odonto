@@ -1,4 +1,9 @@
 
+/*------------------------------------------------------------
+        -------------Formato general ------------
+-------------------------------------------------------------*/
+
+
 .my-container {
   max-width: 100%;
   margin-left:1%;
@@ -7,16 +12,22 @@
   padding-right: 1rem;
 }
 
-.container {
+.container-principal {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9
+    background-color: #f9f9f9;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    
 }
 
-.section-container {
+.secciones-section {
     display: flex;
     gap: 20px;
+    justify-items: center;
+
 }
 
 .pacientes-section {
@@ -33,9 +44,16 @@
 
 .tratamientos-section {
     flex: 1;
+    
 }
 
-body {background-color: #ffffff ; /* usar '!important' para que haga efecto*/
+body {background-color: #ffffff ; 
+  background-image: url('dentist-fondo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  
+
 }
 
 
@@ -53,8 +71,12 @@ h2 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
 }
 
+h6 {
+  color:  #1977cc;
+}
 
 ul {
   list-style: none;
@@ -66,18 +88,18 @@ ul {
   color: #1977cc;
 }
 
-h6 {
-  color:  #1977cc;
-}
+
  p {
     color:   #1977cc;
     font-size: 2.5rem;
     font-weight: bold;
+    text-align: center;
 }
 
- a {color:   #1977cc
-  
+a:hover {
+  text-decoration: underline;
 }
+
 
 .nav-link {color: #1977cc;
           font-weight: bold;
@@ -87,16 +109,25 @@ h6 {
   margin-left: auto;
 }
 
-.lead {
-  color:   #000000 !important;
-  font-size: 22px !important; 
+.texto-home {
+  color:   #000000 ;
+  font-size: 25px ; 
+  font-weight: 400;
 }
 
 .jumbotron { --bs-border-style: !important;
        background-color: #c0d0d7 !important;
+       margin-top: 25px;
 }
-
-
+.título-home {
+color: #199ccc;
+font-size: 45px;
+text-align: center;
+margin-bottom: 20px;
+}
+/*------------------------------------------------------------
+          --------Formato de tarjetas ------------
+-------------------------------------------------------------*/
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -129,6 +160,8 @@ h6 {
 
 .card-body li {
   margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .card h4 a {
@@ -141,20 +174,11 @@ h6 {
   text-decoration: underline;
 }
 
-p {
-  text-align: center;
-}
-a {
-  color: #199ccc;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
 
 
-/* Formato de navbar */
+/*------------------------------------------------------------
+        ------------Formato de navbar ------------
+-------------------------------------------------------------*/
 
 
 #navbar {background-color:#c0d0d7  ;
@@ -170,9 +194,9 @@ a:hover {
 
 
 
-/* Formato de listas de items*/
-
-
+/*------------------------------------------------------------
+--------Formato de listas listas de items ------------
+-------------------------------------------------------------*/
 
 .list-group {
   width: 100%;
@@ -180,8 +204,6 @@ a:hover {
   margin-inline: 1.0rem;
   display:flex;
   flex-wrap: nowrap;
- 
-  
 }
 
 .form-check-input:checked + .form-checked-content {
@@ -225,7 +247,9 @@ a:hover {
 }
 
 
-/* Formato de listas de Forms (planillas) */
+/*------------------------------------------------------------
+--------Formato de listas de Forms (planillas) ------------
+-------------------------------------------------------------*/
 
 .model-form {
   margin: 20px;
@@ -423,67 +447,5 @@ a:hover {
 .model-form button:hover {
   background-color: #45a049;
 }
-/*-------------------------------------
---------PRUEBA-----------------*/
 
-.content {
-    padding: 30px;
-    background: #1977cc;
-    border-radius: 4px;
-    color: #fff;
-  }
-  
-.content h3 {
-    font-weight: 700;
-    font-size: 34px;
-    margin-bottom: 30px;
-  }
-  
-.content p {
-    margin-bottom: 30px;
-  }
-  
-.content .more-btn {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 6px 30px 8px 30px;
-    color: #fff;
-    border-radius: 50px;
-    transition: all ease-in-out 0.4s;
-  }
-  
-.content .more-btn i {
-    font-size: 14px;
-  }
-  
-.content .more-btn:hover {
-    color: #1977cc;
-    background: #fff;
-  }
-  
-  .icon-boxes .icon-box {
-    text-align: center;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-    padding: 40px 30px;
-    width: 100%;
-  }
-  
-  .icon-boxes .icon-box i {
-    font-size: 40px;
-    color: #1977cc;
-    margin-bottom: 30px;
-  }
-  
-  .icon-boxes .icon-box h4 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 30px 0;
-  }
-  
-  .icon-boxes .icon-box p {
-    font-size: 15px;
-    color: #848484;
-  }
-  
+
