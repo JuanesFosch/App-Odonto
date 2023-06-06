@@ -95,7 +95,24 @@ ul {
     font-weight: bold;
     text-align: center;
 }
-
+.section-container p{
+  color: #1a5990;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center; 
+}
+.pacientes-section p{
+color: #1a5990;
+font-size: 1.2rem;
+font-weight: bold;
+text-align: center; 
+}
+.presupuestos-section p{
+color: #1a5990;
+font-size: 1.2rem;
+font-weight: bold;
+text-align: center; 
+}
 a:hover {
   text-decoration: underline;
 }
@@ -235,9 +252,9 @@ margin-bottom: 20px;
   background-color: var(--bs-secondary-bg);
 }
 .list-group-item-check:checked + .list-group-item {
-  color: rgb(4, 96, 235);
-  background-color: var(--bs-primary);
-  border-color: var(--bs-primary);
+  color:#000000;
+  background-color:  #199ccc;
+  border-color:   #ccc;
 }
 .list-group-item-check[disabled] + .list-group-item,
 .list-group-item-check:disabled + .list-group-item {

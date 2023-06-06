@@ -1,6 +1,6 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<div style="display: flex; ">
+<div class="section presupuestos-section" style="display: flex; ">
   <div style="flex: 1; ">
     <h2>Presupuestos</h2>
 
@@ -33,7 +33,7 @@
       </div>
       
       {% empty %}
-      <li>Agregar presupuesto.</li>
+      <p>No hay presupuestos.</p>
       {% endfor %}
   </div>
 
@@ -58,7 +58,7 @@
   <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_cobranzas' item.cobranza.Número_de_comprobante %}">Editar cobranza</a></h4> 
  </div>
     {%empty%}
-    <li>Agregar cobranza.</li>
+    <p>No hay cobranzas.</p>
     {% endfor %}
  </div>
 </div>
