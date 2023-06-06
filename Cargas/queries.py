@@ -1,4 +1,4 @@
-from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes, User
+from Cargas.models import Presupuestos, Cobranzas, Tratamientos_Propios,Tratamientos_ObrasSociales_Prepagas, Pacientes,CobranzasPresupuestos_Inter, User
 from django.db.models import Sum
 
 
@@ -9,6 +9,17 @@ for valor in Propios:
     print(valor.Tratamiento)
 
 valores=Propios.values_list('Código_interno', flat=True)
+
+owner=1
+tratamientos_propios= Tratamientos_Propios.objects.filter(owner=owner).values_list('Tratamiento', flat=True)
+
+
+choices=[(item, item) for item in tratamientos_propios]
+choices=tuple(choices)
+
+
+
+
 #------------------------------------------------------------------
 #      Ejemplos de queries    ( de QuerySet API references )
 #------------------------------------------------------------------
@@ -43,6 +54,9 @@ tratamientos_propios=[
                     Tratamientos_Propios.objects.create(Código_interno=1, Tratamiento='Muelas'),
                     Tratamientos_Propios.objects.create(Código_interno=2, Tratamiento='Encías'),
                     Tratamientos_Propios.objects.create(Código_interno=3, Tratamiento='Implante'),
+]
+tratamientos_os_prepagas=[
+            Tratamientos_ObrasSociales_Prepagas.objects.create(Obra_Social_Prepaga='Sancor', Tratamiento= 'Muelas', Código=503, Precio= 2500),
 ]
 presupuestos = [
             Presupuestos.objects.create(Número_de_orden=0,Paciente_Dni=28564789,Tratamiento_1='Muelas',Tratamiento_2='',Tratamiento_3='', Monto=2000)

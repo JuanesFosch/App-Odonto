@@ -1,8 +1,11 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<p>Agregar un presupuesto:</p>
-    <form action="{% url 'Cargas:carga_presupuestos' %}" method='post' class="model-form">
+<p>Editar un presupuesto:</p>
+    <form action="{% url 'Cargas:editar_presupuestos' número.Número_de_orden %}" method='post' class="model-form">
         {% csrf_token %}
+        <p>
+            {{ form2.particular.label_tag }} {{ form2.particular }}
+        </p>  
         <p> <!---Muestra los campos del modelo a llenar en forma de párrafos y en orden pesonalizado-->
             {{ form.Paciente_Dni.label_tag }} {{ form.Paciente_Dni }}
         </p>
@@ -22,7 +25,6 @@
         <p>
             {{ form.Monto.label_tag }} {{ form.Monto }}
         </p>  
-        
-        <button name="submit">Cargar presupuesto</button>
+        <button name="submit">Guardar cambios</button>
     </form>
 {% endblock content %}

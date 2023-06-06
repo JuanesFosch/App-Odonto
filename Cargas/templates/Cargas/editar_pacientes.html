@@ -1,9 +1,9 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<p>Agregar una cobranza:</p>
-    <form action="{% url 'Cargas:carga_cobranzas' %}" method='post' class="model-form-cobranza">
+<p>Editar un paciente:</p>
+    <form action="{% url 'Cargas:editar_pacientes' paciente_dni.DNI %}" method='post' class="model-form">
         {% csrf_token %}
         {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
-        <button name="submit">Cargar cobranza</button>
+        <button name="submit">Guardar cambios</button>
     </form>
 {% endblock content %}

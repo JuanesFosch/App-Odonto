@@ -1,0 +1,45 @@
+{% extends "Cargas/base.html" %}
+
+{% block content %}
+<div class="section-container" >
+    <div class="section tratamientos-section " style="display: flex; justify-content: center;text-align: center; ">
+        <div class="section" style="flex: 1;  ">
+            <h2>Tratamientos propios</h2>
+            <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;" href="{% url 'Cargas:carga_tratamientos_propios' %}">Agregar tratamiento</a></h4>
+            {% for tratamiento in propios %}
+            <div class="card" style="justify-content: center;text-align: center;margin-left: 135px">
+                <h4>{{ tratamiento.Tratamiento }}</h4>
+                <div class="card-body" style="justify-content: center;text-align: center;">
+                    <ul>
+                        <li>Código: {{ tratamiento.Código_interno }}</li>
+                    </ul>
+                </div>
+                <h4><a href="{% url 'Cargas:editar_tratamientos_propios' tratamiento.Código_interno %}">Editar tratamiento</a></h4>
+            </div>
+            {% empty %}
+            <p>No hay tratamientos propios.</p>
+            {% endfor %}
+        </div>
+
+        <div class="section" style="flex: 1;">
+            <h2>Obras Sociales/Prepagas</h2>
+            <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;" href="{% url 'Cargas:carga_tratamientos_os_prepagas' %}">Agregar tratamiento</a></h4>
+            {% for tratamiento in os_prepagas %}
+            <div class="card" style="justify-content: center;text-align: center;margin-left: 135px">
+                <h4>{{ tratamiento.Obra_Social_Prepaga }}</h4>
+                <div class="card-body">
+                    <ul>
+                        <li>Tratamiento: {{ tratamiento.Tratamiento }}</li>
+                        <li>Código: {{ tratamiento.Código }}</li>
+                        <li>Precio: {{ tratamiento.Precio }}</li>
+                    </ul>
+                </div>
+                <h4><a href="{% url 'Cargas:editar_tratamientos_os_prepagas' tratamiento.Código %}">Editar tratamiento</a></h4>
+            </div>
+            {% empty %}
+            <p>No hay tratamientos de Obras Sociales/Prepagas.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

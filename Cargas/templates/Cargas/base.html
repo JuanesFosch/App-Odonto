@@ -6,12 +6,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,
-        shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no">
   <title>App Odonto</title>
    <!---Se aplica el formato para distintos elementos-->
   <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">  
-  <link href="{% static 'list-groups.css' %}" rel="stylesheet">
   <link href="{% static 'estilos.css' %}" rel="stylesheet">
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
@@ -23,7 +21,7 @@
     
 
 <nav id="navbar" class="navbar navbar-expand-md navbar-light  mb-4 border" >
-    <h6>App Odonto</h6>
+    <h6 class="nav-link separator-link" >App Odonto</h6>
    
       <!---Esto hace que cambie el formato de la barra según cambia el tamaño de la ventana-->
       <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -32,24 +30,23 @@
       <span class="navbar-toggler-icon"></span></button>
       
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <a class="nav-link" href="{% url 'Cargas:index'%}">
+      
+      <a class="nav-link separator-link" href="{% url 'Cargas:index'%}">
         Home</a>
-      <a class="nav-link" href="{% url 'Cargas:secciones'%}">
+      <a class="nav-link separator-link" href="{% url 'Cargas:secciones'%}">
         Secciones</a>
       {% if user.is_authenticated  %}
-        Hola, {{ user.username}}.
-        <a class="nav-link" href="{% url 'Usuarios:logout'%}">Salir</a>
+        <a class="nav-link separator-link" style="color: #333333;">Hola 👋, {{ user.username}}. </a>
+        <a class="nav-link  align-right" href="{% url 'Usuarios:logout'%}">Salir</a>
       {% else %}  
-        <a class="nav-link" href="{% url 'Usuarios:registro'%}">Registrarse</a>
-        <a class="nav-link" href="{% url 'Usuarios:login'%}">Ingresar</a>
+        <a class="nav-link separator-link align-right" href="{% url 'Usuarios:login'%}">Ingresar</a>
+        <a class="nav-link " href="{% url 'Usuarios:registro'%}">Registrarse</a>
       {% endif %}
     </div>
 </nav>
 <!--Esta sección le da formato general a la sección central de las páginas -->
-  <main role="main" class="container" >
-    <div class="pb-2 mb-2 border-bottom" > 
-
-    </div>
+  <main role="main" class="container-principal" style="justify-content: center; " >
+    
     <div>
         {% block content %}
         

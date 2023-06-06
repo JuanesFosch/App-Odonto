@@ -1,10 +1,13 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<div style="display: flex;">
-  <div style="flex: 1;">
-    <p>Presupuestos</p>
+<div style="display: flex; ">
+  <div style="flex: 1; ">
+    <h2>Presupuestos</h2>
+
+    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos' %}">Agregar presupuesto</a></h4>
+
     {% for presupuesto in context_presupuestos %}
-    <div class= "card mb">
+    <div class= "card mb" style="width: 20rem; margin-left: 100px">
         <h4 class="card-header">
           <small>Número de Orden: {{ presupuesto.presupuesto.Número_de_orden }}</small>
         </h4>
@@ -25,19 +28,21 @@
                   {% endfor %}
                   </ul>   
           </ul>
+          <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_presupuestos' presupuesto.presupuesto.Número_de_orden %}">Editar presupuesto</a></h4>     
         </div>
-      </div>  
+      </div>
+      
       {% empty %}
       <li>Agregar presupuesto.</li>
       {% endfor %}
-      <a href="{% url 'Cargas:carga_presupuestos' %}">Agregar presupuesto</a>
   </div>
 
 <div style="flex: 1;">
-<p>Cobranzas</p>
+<h2 style="color:  #199ccc">Cobranzas</h2>
 
+<h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold; margin-left: 135px" href="{% url 'Cargas:carga_cobranzas' %}">Agregar cobranza</a></h4>
 {% for item in context_cobranzas %}
- <div class= "card mb">
+ <div class= "card mb" style="width: 20rem;  margin-left: 130px;">
   <h4 class="card-header">
     <small>
         Número de comprobante: {{ item.cobranza.Número_de_comprobante}}</small>
@@ -49,12 +54,12 @@
         <li>Fecha de cobro: {{ item.cobranza.Fecha_de_cobro|date:'d/M/Y' }}</li>
         <li>Cuánto pagó: {{ item.cobranza.Cuánto_pagó }}</li>
     </ul>
-        </div>
+  </div>
+  <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_cobranzas' item.cobranza.Número_de_comprobante %}">Editar cobranza</a></h4> 
  </div>
     {%empty%}
     <li>Agregar cobranza.</li>
     {% endfor %}
-    <a href="{% url 'Cargas:carga_cobranzas' %}">Agregar cobranza</a>
  </div>
 </div>
 {% endblock content %}

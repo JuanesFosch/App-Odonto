@@ -1,0 +1,9 @@
+{% extends "Cargas/base.html" %}
+{% block content %}
+<p>Editar un tratamiento:</p>
+    <form action="{% url 'Cargas:editar_tratamientos_os_prepagas' código.Código %}" method='post' class="model-form-cobranza">
+        {% csrf_token %}
+        {{ form.as_p }} <!---Muestra los campos del modelo a llenar en forma de párrafos-->
+        <button name="submit">Guardar cambios</button>
+    </form>
+{% endblock content %}
