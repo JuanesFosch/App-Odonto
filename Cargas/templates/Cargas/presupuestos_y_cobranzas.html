@@ -4,7 +4,9 @@
   <div style="flex: 1; ">
     <h2>Presupuestos</h2>
 
-    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos' %}">Agregar presupuesto</a></h4>
+    <p> Está puesta la función de 'carga_presupuestos_os_prepagas' en el link Agregar presupuesto  </p>
+
+    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos_os_prepagas' %}">Agregar presupuesto</a></h4>
 
     {% for presupuesto in context_presupuestos %}
     <div class= "card mb" style="width: 20rem; margin-left: 100px">

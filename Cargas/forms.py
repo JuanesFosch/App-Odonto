@@ -100,6 +100,19 @@ class Presupuestos_Os_Prepagas_Form(forms.ModelForm):
             fields_presu_os_prepagas.save()
         return (fields_presu_os_prepagas)
 
+    def save(self, commit=True):
+        # Se toman los campos de la plantilla para cargar en la tabla 'Presupuestos'
+        fields_presu_os_prepagas=super(Presupuestos_Os_Prepagas_Form,self).save(commit=False)
+
+        # Se crea una instancia del modelo "Pacientes" según el DNI seleccionado, para poder cargar un presupuesto a ese paciente.
+        paciente_dni = self.cleaned_data['Paciente_Dni']
+        paciente = Pacientes.objects.get(DNI=paciente_dni)
+        fields_presu_os_prepagas.Paciente_Dni = paciente
+
+        if commit:
+            fields_presu_os_prepagas.save()
+        return (fields_presu_os_prepagas)
+
 
 
 class CobranzasForm(forms.ModelForm):

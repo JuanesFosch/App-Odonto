@@ -1,5 +1,6 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
+<p> Está puesta la función de 'carga_presupuestos_os_prepagas' en el link Agregar presupuesto  </p>
 <p>Agregar un presupuesto:</p>
     <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post'>
         {% csrf_token %}
