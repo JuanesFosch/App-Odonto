@@ -23,7 +23,7 @@ urlpatterns = [
 
     # Página con la sección 'Editar Pacientes'
     path('editar_pacientes/<int:dni>/', views.editar_pacientes, name='editar_pacientes'),
-
+ 
     # Página con la sección 'Carga de Presupuestos'
     path('carga_presupuestos', views.carga_presupuestos, name='carga_presupuestos'),
 
@@ -38,6 +38,9 @@ urlpatterns = [
 
     # Página con la sección 'Editar Presupuestos'
     path('editar_presupuestos/<int:orden>/', views.editar_presupuestos, name='editar_presupuestos'),
+
+    # Página con la sección 'Editar Presupuestos Obras Sociales y Prepagas'
+    path('editar_presupuestos_os_prepagas/<int:orden>/', views.editar_presupuestos_os_prepagas, name='editar_presupuestos_os_prepagas'),
 
     # Página con la sección 'Editar Cobranzas'
     path('editar_cobranzas/<int:comprobante>', views.editar_cobranzas, name='editar_cobranzas'),

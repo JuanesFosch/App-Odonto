@@ -4,8 +4,10 @@
   <div style="flex: 1; ">
     <h2>Presupuestos</h2>
 
-    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos' %}">Agregar presupuesto</a></h4>
-
+    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos' %}">Agregar presupuesto por Particular</a></h4>
+    <h4 style="font-size: 1.2rem"><a style="color: #8e9294;font-weight: bold;margin-left: 105px" href="{% url 'Cargas:carga_presupuestos_os_prepagas' %}">Agregar presupuesto por Obra Social o Prepaga</a></h4>
+    
+    
     {% for presupuesto in context_presupuestos %}
     <div class= "card mb" style="width: 20rem; margin-left: 100px">
         <h4 class="card-header">
@@ -27,8 +29,9 @@
                       <li>Número de comprobante: {{ i }}</li>
                   {% endfor %}
                   </ul>   
-          </ul>
+          </ul>   <!--Este Número_de_orden se pasa a la función 'editar_presupuestos' como argumento 'orden'. Se toma desde el campo presupuesto.presupuesto.Número_de_orden-->
           <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_presupuestos' presupuesto.presupuesto.Número_de_orden %}">Editar presupuesto</a></h4>     
+          <h4 style="font-size: 1.0rem"><a href="{% url 'Cargas:editar_presupuestos_os_prepagas' presupuesto.presupuesto.Número_de_orden %}">Editar presupuesto os prepagas</a></h4>  
         </div>
       </div>
       

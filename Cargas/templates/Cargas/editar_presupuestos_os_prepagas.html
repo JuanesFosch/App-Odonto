@@ -1,7 +1,7 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
 <p>Editar un presupuesto:</p>           <!---'número.Número_de_orden' es la consulta de la vista, hacia una instancia de Presupuestos---->
-    <form action="{% url 'Cargas:editar_presupuestos' número.Número_de_orden %}" method='post' class="model-form">
+    <form action="{% url 'Cargas:editar_presupuestos_os_prepagas' número.Número_de_orden %}" method='post' class="model-form">
         {% csrf_token %}
         <p>
         </p>  

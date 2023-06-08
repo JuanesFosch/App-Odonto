@@ -86,7 +86,12 @@ WSGI_APPLICATION = 'django_Odonto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+<<<<<<< HEAD
 DATABASES = {'default': {
+=======
+DATABASES = {
+    'default': {
+>>>>>>> App-Lolo-Pruebas-y-modificaciones
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'App_Odonto',
     }
@@ -127,8 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'data/staticfiles'
+STATIC_URL = '/_static/'
+
+#STATIC_ROOT = BASE_DIR / 'data/staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
