@@ -3,7 +3,7 @@
 <p>Agregar un presupuesto:</p>
 <div class="section presupuestos-section" style="display: flex; ">
     <div style="flex: 1; ">
-    <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post' class="model-form">
+    <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post' class="model-form-presupuestos-os-prepagas">
         {% csrf_token %}
         <p> <!---Muestra los campos del modelo a llenar en forma de párrafos y en orden pesonalizado-->
             {{ form.Paciente_Dni.label_tag }} {{ form.Paciente_Dni }}
@@ -35,10 +35,10 @@
     </form>
     </div>
 
-      <div class="section" style="flex: 1;">
+      <div class="section" style="flex: 1; justify-content: center;">
           <h2>Obras Sociales/Prepagas</h2>
                 {% for tratamiento in os_prepagas %}
-                <div class="card card-obra-social" style="justify-content: center;text-align: center;margin-left: 135px">
+                <div class="card card-obra-social" style="justify-content: center;text-align: center;margin-left: 150px;">
                     <h4>{{ tratamiento.Obra_Social_Prepaga }}</h4>
                     <div class="card-body">
                         <ul>
