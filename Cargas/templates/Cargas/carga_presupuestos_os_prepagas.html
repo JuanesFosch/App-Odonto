@@ -1,8 +1,9 @@
 {% extends "Cargas/base.html" %}
 {% block content %}
-<p> Está puesta la función de 'carga_presupuestos_os_prepagas' en el link Agregar presupuesto  </p>
 <p>Agregar un presupuesto:</p>
-    <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post'>
+<div class="section presupuestos-section" style="display: flex; ">
+    <div style="flex: 1; ">
+    <form action="{% url 'Cargas:carga_presupuestos_os_prepagas' %}" method='post' class="model-form">
         {% csrf_token %}
         <p> <!---Muestra los campos del modelo a llenar en forma de párrafos y en orden pesonalizado-->
             {{ form.Paciente_Dni.label_tag }} {{ form.Paciente_Dni }}
@@ -11,6 +12,12 @@
             {{ form.Número_de_orden.label_tag }} {{ form.Número_de_orden }}
         </p>
             
+        <p>
+            {{ form.Obra_Social_Prepaga.label_tag }} {{ form.Obra_Social_Prepaga }}
+        </p>
+        <p>
+            {{ form.Código_tratamiento_Os_Prepaga.label_tag }} {{ form.Código_tratamiento_Os_Prepaga }}
+        </p>  
         <p>
             {{ form.Tratamiento_1.label_tag }} {{ form.Tratamiento_1 }}
         </p>
@@ -26,4 +33,26 @@
         
         <button name="submit">Cargar presupuesto</button>
     </form>
+    </div>
+
+      <div class="section" style="flex: 1;">
+          <h2>Obras Sociales/Prepagas</h2>
+                {% for tratamiento in os_prepagas %}
+                <div class="card card-obra-social" style="justify-content: center;text-align: center;margin-left: 135px">
+                    <h4>{{ tratamiento.Obra_Social_Prepaga }}</h4>
+                    <div class="card-body">
+                        <ul>
+                            <li>Tratamiento: {{ tratamiento.Tratamiento }}</li>
+                            <li>Código: {{ tratamiento.Código }}</li>
+                            <li>Precio: {{ tratamiento.Precio }}</li>
+                        </ul>
+                    </div>
+                    <h4><a href="{% url 'Cargas:editar_tratamientos_os_prepagas' tratamiento.Código %}">Editar tratamiento</a></h4>
+                </div>
+                {% empty %}
+                <p>No hay tratamientos de Obras Sociales/Prepagas.</p>
+                {% endfor %}
+            </div>
+    </div>
+
 {% endblock content %}

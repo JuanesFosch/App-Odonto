@@ -44,7 +44,7 @@ def pacientes(request):
     pacientes= Pacientes.objects.filter(owner=request.user)
     context= {'pacientes':pacientes}
     return render(request, 'Cargas/pacientes.html', context)
-
+    
 @login_required
 def editar_pacientes(request, dni):
     """Permite editar los datos de un paciente""" 
@@ -87,21 +87,25 @@ def carga_presupuestos(request):
 @login_required
 def carga_presupuestos_os_prepagas(request):
     """Permite a un usuario cargar presupuestos"""
-    
+    propios= Tratamientos_Propios.objects.filter(owner=request.user)
+    os_prepagas=Tratamientos_ObrasSociales_Prepagas.objects.filter(owner=request.user)
     if request.method != 'POST':
         # Sin datos cargados; crear una planilla en blanco.
         form= Presupuestos_Os_Prepagas_Form(owner=request.user)
     else:
         # Datos cargados a través de POST, procesarlos.
         form= Presupuestos_Os_Prepagas_Form(data=request.POST,owner=request.user)
+
         if form.is_valid():
             nuevo_presupuesto= form.save(commit=False)
             nuevo_presupuesto.owner = request.user
+
             form.save()
             return redirect('Cargas:carga_presupuestos_os_prepagas')
     # Muestra una planilla en blanco o inválida.
-    context= {'form': form}
+    context= {'form': form,'propios': propios, 'os_prepagas': os_prepagas}
     return render(request,'Cargas/carga_presupuestos_os_prepagas.html', context )
+
 
 
 @login_required
@@ -182,6 +186,25 @@ def editar_presupuestos(request, orden):
             return redirect('Cargas:presupuestos_y_cobranzas')
     context = {'número': número, 'form': form}
     return render(request, 'Cargas/editar_presupuestos.html', context)
+
+@login_required
+def editar_presupuestos_os_prepagas(request, orden):
+    """Permite editar los datos de un presupuesto""" 
+    número= Presupuestos.objects.get(Número_de_orden=orden)
+    owner_id= número.owner_id
+    
+    if request.method != 'POST':
+        # Request inicial; plantilla pre-llenada con el presupuesto actual.
+        form = Presupuestos_Os_Prepagas_Form(instance=número, owner=owner_id)
+    else:
+        # Datos de POST procesados y enviados.
+        form = Presupuestos_Os_Prepagas_Form(instance=número,owner=owner_id,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Cargas:presupuestos_y_cobranzas')
+    context = {'número': número, 'form': form}
+    return render(request, 'Cargas/editar_presupuestos.html', context)
+
 
 
 @login_required

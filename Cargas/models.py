@@ -54,7 +54,11 @@ class Presupuestos(models.Model):
     Paciente_Dni= models.ForeignKey("Pacientes",on_delete=models.CASCADE, related_name='Presupuestos')
     Número_de_orden= models.IntegerField(primary_key=True,auto_created=True,default=0000,blank=False)  
     Fecha= models.DateField(auto_now_add=True,blank=True)
- 
+
+    #Obra_Social_Prepaga= models.CharField(max_length=40)
+    #Código_tratamiento_Os_Prepaga= models.ForeignKey("Tratamientos_ObrasSociales_Prepagas",on_delete=models.CASCADE, related_name='Presupuestos')
+    #Código_tratamiento_interno= models.ForeignKey("Tratamientos_Propios",on_delete=models.CASCADE, related_name='Presupuestos')
+
     Tratamiento_1= models.CharField(max_length=100,blank=True)  # Para tratamientos por particular
     Tratamiento_2= models.CharField(max_length=100,blank=True)  # Para tratamientos por particular  
     Tratamiento_3= models.CharField(max_length=100,blank=True) # Para tratamientos por particular
