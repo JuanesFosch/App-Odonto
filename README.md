@@ -27,17 +27,15 @@ Otra idea a futuro es tener una sección de Costos (Insumos, gastos generales, s
 The objective of this project is to learn and practice web development, it is a CRUD project made with Python in Django, formatted in CSS and deployed in Fly.io.
 While my learning focus is aimed at the backend, I tried to make an aesthetically appealing and neat design using Bootstrap elements.
 
-The first version is already online here [App-Odonto](https://app-odonto.fly.dev/)
+#### The first version is already online here [App-Odonto](https://app-odonto.fly.dev/)
 (Keep in mind that the performance of the server may not be very good, due to the conditions of the platform)
 
 Currently one can register as a user, load and/or edit their patients, treatments, budgets and collections
 
-There is a real difficulty for a dentist that consists of the professional's relationship with social and prepaid works to be able to register, report and collect treatments.
-
-There is a real difficulty for a dentist that consists of the professional's relationship with social and prepaid works to be able to register, report and collect treatments.
+There is a real difficulty for a dentist that consists of the professional's relationship with social security institutions or companies to be able to register, report and collect treatments.
 The system of benefits, codes and tariffs is very complex since there are many institutions and each one has its particularities. This means that professionals often do not know how much or when they should charge, if any fees or codes have changed, etc.
-The idea for the future is to bring the codes and tariffs of each benefit of each social work or prepaid to a centralized and updated place.
-From there they could quickly consult codes and tariffs and assign them to the patient's budget. In addition, they could keep better control of how many benefits they have to collect from each social work / prepaid.
+The idea for the future is to bring the codes and tariffs of each benefit of each social security institution or company to a centralized and updated place.
+From there they could quickly consult codes and tariffs and assign them to the patient's budget. In addition, they could keep better control of how many benefits they have to collect from each social security institution / company.
 For now I made a simulation of those codes and tariffs, to be able to move forward.
 
 As for the treatments that are paid for individually, there is a separate section for that. The treatments offered by the professional can be charged, and in the budget the amount to be charged is of choice.
