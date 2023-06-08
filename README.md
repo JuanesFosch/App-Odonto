@@ -4,7 +4,6 @@
 
 El objetivo de este proyecto es aprender y practicar desarrollo web, es un proyecto de CRUD hecho con Python en Django, formateado en CSS y desplegado en Fly.io.
 Si bien mi enfoque de aprendizaje está dirigido al backend, traté de hacer un diseño estético atractivo y prolijo utilizando elementos de Bootstrap. 
-(ACÁ IMÁGENES Y GIFS)
 
 #### La primera versión ya está online acá [App-Odonto](https://app-odonto.fly.dev/)
 (Tener en cuenta que el funcionamiento del servidor puede no ser muy bueno, por las condiciones de la plataforma)
@@ -21,6 +20,8 @@ Por ahora hice una simulación de esos códigos y aranceles, para poder avanzar.
 
 En cuanto a los tratamientos que se pagan de forma particular, hay una sección aparte para eso. Se pueden cargar los tratamientos que ofrece el profesional, y en el presupuesto el monto a cobrar es a elección.
 Otra idea a futuro es tener una sección de Costos (Insumos, gastos generales, servicios, etc), y desde ahí poder calcular el precio de las prestaciones con precisión.
+
+![App-Odonto_Trim](https://github.com/JuanesFosch/App-Odonto/assets/97416066/eb2cdf80-7874-46bb-ae23-e7d8da167aee)
 
 > English
 
