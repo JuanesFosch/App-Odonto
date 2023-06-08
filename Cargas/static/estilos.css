@@ -169,15 +169,12 @@ margin-bottom: 20px;
 
 .card-body {
   padding: 10px;
-  display: none;  /* Ocultar por defecto los elementos de la lista */
+  
 }
 .card-obra-social .card-body {
   padding: 10px;
-  display: none;  /* Ocultar por defecto los elementos de la lista */
 }
-.card-obra-social:hover .card-body  {
-  display: block;  /* Mostrar los elementos de la lista al pasar el cursor sobre la tarjeta */
-}
+
 
 .card-body ul {
   padding-left: 0;
