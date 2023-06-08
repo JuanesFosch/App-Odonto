@@ -96,39 +96,22 @@ ul {
     text-align: center;
 }
 .section-container p{
-<<<<<<< HEAD
-=======
     color: #1a5990;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center; 
 }
 .pacientes-section p{
->>>>>>> App-Lolo-Pruebas-y-modificaciones
   color: #1a5990;
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center; 
 }
-<<<<<<< HEAD
-.pacientes-section p{
-color: #1a5990;
-font-size: 1.2rem;
-font-weight: bold;
-text-align: center; 
-}
-.presupuestos-section p{
-color: #1a5990;
-font-size: 1.2rem;
-font-weight: bold;
-text-align: center; 
-=======
 .presupuestos-section p{
   color: #1a5990;
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center; 
->>>>>>> App-Lolo-Pruebas-y-modificaciones
 }
 a:hover {
   text-decoration: underline;

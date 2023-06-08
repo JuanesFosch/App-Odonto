@@ -86,12 +86,8 @@ WSGI_APPLICATION = 'django_Odonto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-<<<<<<< HEAD
-DATABASES = {'default': {
-=======
 DATABASES = {
     'default': {
->>>>>>> App-Lolo-Pruebas-y-modificaciones
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'App_Odonto',
     }
