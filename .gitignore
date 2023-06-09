@@ -3,6 +3,8 @@ Cargas/__pycache__/__init__.cpython-311.pyc
 
 *.pyc
 *.jpeg
-django*
+
 venv*
 *.rtf
+
+from dotenv import load_dotenv.py

@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = 'django-insecure-i)$rdq6bgvs#co@o%+7749-=!2gd-g7$!++xo5b_3$eqa19p2$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -67,7 +67,7 @@ ROOT_URLCONF = 'django_Odonto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'django_Odonto/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
