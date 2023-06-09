@@ -6,5 +6,6 @@ Cargas/__pycache__/__init__.cpython-311.pyc
 
 venv*
 *.rtf
-
+*.env
+*.xlsx
 from dotenv import load_dotenv.py

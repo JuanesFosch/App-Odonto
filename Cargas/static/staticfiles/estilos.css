@@ -1,0 +1,544 @@
+
+/*------------------------------------------------------------
+        -------------Formato general ------------
+-------------------------------------------------------------*/
+
+
+.my-container {
+  max-width: 100%;
+  margin-left:1%;
+  margin-right: 1%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.container-principal {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    
+}
+
+.secciones-section {
+    display: flex;
+    gap: 20px;
+    justify-items: center;
+
+}
+
+.pacientes-section {
+    flex: 1;
+    background-color: #f9f9f9
+}
+
+.pacientes-section h4 {
+  font-size: 1.0rem;
+  margin-bottom: 10px;
+  
+}
+
+
+.tratamientos-section {
+    flex: 1;
+    
+}
+
+body {background-color: #ffffff ; 
+  background-image: url('dentist-fondo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  
+
+}
+
+
+h1 {
+  color: #199ccc;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+h2 {
+  color: #199ccc;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+h6 {
+  color:  #1977cc;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ li {
+  color: #1977cc;
+}
+
+
+ p {
+    color:   #1977cc;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+.section-container p{
+    color: #1a5990;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center; 
+}
+.pacientes-section p{
+  color: #1a5990;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center; 
+}
+.presupuestos-section p{
+  color: #1a5990;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center; 
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+.nav-link {color: #1977cc;
+          font-weight: bold;
+}
+
+.align-right {
+  margin-left: auto;
+}
+
+.texto-home {
+  color:   #000000 ;
+  font-size: 25px ; 
+  font-weight: 400;
+}
+
+.jumbotron { --bs-border-style: !important;
+       background-color: #c0d0d7 !important;
+       margin-top: 25px;
+}
+.título-home {
+color: #199ccc;
+font-size: 45px;
+text-align: center;
+margin-bottom: 20px;
+}
+/*------------------------------------------------------------
+          --------Formato de tarjetas ------------
+-------------------------------------------------------------*/
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 18rem;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+ 
+}
+
+.card-body {
+  padding: 10px;
+  
+}
+.card-obra-social .card-body {
+  padding: 10px;
+}
+
+
+.card-body ul {
+  padding-left: 0;
+}
+
+.card-body li {
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card h4 a {
+  color: #199ccc;
+  text-decoration: none;
+  
+}
+
+.card h4 a:hover {
+  text-decoration: underline;
+}
+
+
+
+/*------------------------------------------------------------
+        ------------Formato de navbar ------------
+-------------------------------------------------------------*/
+
+
+#navbar {background-color:#c0d0d7  ;
+}
+.separator-link {
+  border-right: 3px solid #f9f9f9; /* Ejemplo: línea vertical como separador */
+  padding-right: 10px; /* Ejemplo: espaciado entre enlaces */
+}
+
+.separator-link:last-child {
+  border-right: none; /* Remover el separador en el último enlace */
+}
+
+
+
+/*------------------------------------------------------------
+--------Formato de listas listas de items ------------
+-------------------------------------------------------------*/
+
+.list-group {
+  width: 100%;
+  max-width: 460px;
+  margin-inline: 1.0rem;
+  display:flex;
+  flex-wrap: nowrap;
+}
+
+.form-check-input:checked + .form-checked-content {
+  opacity: .5;
+}
+
+.form-check-input-placeholder {
+  border-style: dashed;
+}
+[contenteditable]:focus {
+  outline: 0;
+}
+
+
+.list-group-checkable .list-group-item {  /* Este es cuadro y el título*/
+  cursor: pointer;
+  border: 3px solid #ccc;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  
+}
+
+.list-group-item-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+.list-group-item-check:hover + .list-group-item {
+  background-color: var(--bs-secondary-bg);
+}
+.list-group-item-check:checked + .list-group-item {
+  color:#000000;
+  background-color:  #199ccc;
+  border-color:   #ccc;
+}
+.list-group-item-check[disabled] + .list-group-item,
+.list-group-item-check:disabled + .list-group-item {
+  pointer-events: none;
+  filter: none;
+  opacity: .5;
+}
+
+
+/*------------------------------------------------------------
+--------Formato de listas de Forms (planillas) ------------
+-------------------------------------------------------------*/
+
+.model-form {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.model-form label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form input[type="text"],
+.model-form textarea {
+  width: 40%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form input[type="number"] {
+  width: 22%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form input[type="number"][name="Número_de_orden"]{
+  width: 7%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+}
+
+.model-form select {
+  width: 15%;
+  font-size: 20px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.model-form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.model-form button:hover {
+  background-color: #45a049;
+}
+
+
+
+.model-form-presupuestos-os-prepagas {
+  margin: 20px;
+  padding: 10px;
+  margin-top: 47px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  width: 105%;
+}
+
+.model-form-presupuestos-os-prepagas label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form-presupuestos-os-prepagas p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form-presupuestos-os-prepagas input[type="text"],
+.model-form-presupuestos-os-prepagas textarea {
+  width: 40%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-presupuestos-os-prepagas input[type="number"] {
+  width: 30%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-presupuestos-os-prepagas input[type="number"][name="Paciente_dni"]{
+  width: 45%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-presupuestos-os-prepagas input[type="number"][name="Número_de_orden"]{
+  width: 15%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.model-form-presupuestos-os-prepagas select {
+  width: 25%;
+  font-size: 20px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.model-form-presupuestos-os-prepagas button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.model-form-cobranza {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.model-form-cobranza label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form-cobranza p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form-cobranza input[type="text"],
+.model-form-cobranza textarea {
+  width: 40%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-cobranza input[type="number"] {
+  width: 15%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.model-form-cobranza input[type="number"][name="Número_de_comprobante"]{
+  width: 9%;
+  padding: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+}
+
+.model-form-cobranza select {
+  width: 8%;
+  font-size: 20px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.model-form-cobranza button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.model-form-registro {
+  margin: 20px;
+  padding: 10px;
+  width: 80%;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+
+  align-self: center;
+ 
+}
+
+.model-form-registro label {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+
+} 
+
+
+.model-form-registro p {
+  color: #199ccc;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.model-form-registro input[type="text"],
+.model-form-registro textarea {
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.model-form-registro span[class="helptext"] {
+ 
+  font-size: 15px;
+  font-weight:500;
+  margin-bottom: 0px;
+  text-align: left;
+}
+.model-form-registro button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.model-form button:hover {
+  background-color: #45a049;
+}
+
+
