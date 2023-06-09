@@ -50,7 +50,8 @@ def editar_pacientes(request, dni):
     """Permite editar los datos de un paciente""" 
     paciente_dni= Pacientes.objects.get(DNI=dni)
     nombre= paciente_dni.Nombre
-    
+    if paciente_dni.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el paciente actual.
         form = PacientesForm(instance=paciente_dni)
@@ -174,7 +175,8 @@ def editar_presupuestos(request, orden):
     """Permite editar los datos de un presupuesto""" 
     número= Presupuestos.objects.get(Número_de_orden=orden)
     owner_id= número.owner_id
-    
+    if número.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el presupuesto actual.
         form = PresupuestosForm(instance=número, owner=owner_id)
@@ -192,7 +194,8 @@ def editar_presupuestos_os_prepagas(request, orden):
     """Permite editar los datos de un presupuesto""" 
     número= Presupuestos.objects.get(Número_de_orden=orden)
     owner_id= número.owner_id
-    
+    if número.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el presupuesto actual.
         form = Presupuestos_Os_Prepagas_Form(instance=número, owner=owner_id)
@@ -212,7 +215,8 @@ def editar_cobranzas(request, comprobante):
     """Permite editar los datos de una cobranza""" 
     número= Cobranzas.objects.get(Número_de_comprobante=comprobante)
     owner_id= número.owner_id
-    
+    if número.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # # Request inicial; plantilla pre-llenada con la cobranza actual.
         form = CobranzasForm(instance=número,owner=owner_id)
@@ -282,7 +286,8 @@ def editar_tratamientos_propios(request, código):
     """Permite editar los datos de un tratamiento propio""" 
     código_propio= Tratamientos_Propios.objects.get(Código_interno=código)
     owner_id= código_propio.owner_id
-    
+    if código_propio.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el tratamiento actual.
         form = TratamientosPropiosForm(instance=código_propio,owner=owner_id)
@@ -302,7 +307,8 @@ def editar_tratamientos_os_prepagas(request, código):
     """Permite editar los datos de un tratamiento de obra social o prepaga""" 
     código= Tratamientos_ObrasSociales_Prepagas.objects.get(Código=código)
     owner_id= código.owner_id
-    
+    if código.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         # Request inicial; plantilla pre-llenada con el tratamiento actual.
         form = TratamientosOs_PrepagasForm(instance=código,owner=owner_id)
