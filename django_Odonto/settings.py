@@ -25,10 +25,10 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i)$rdq6bgvs#co@o%+7749-=!2gd-g7$!++xo5b_3$eqa19p2$'
+SECRET_KEY = '$rdq6bgvs#co@o%+7749-=!2gd-g7$!++xo5b_3$eqa19p2$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
 ALLOWED_HOSTS = ["*"]
 
@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/_static/'
 
-#STATIC_ROOT = BASE_DIR / 'data/staticfiles'
+STATIC_ROOT = BASE_DIR / 'Cargas/static/staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -141,5 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Mis configuraciones
 LOGIN_URL = 'Usuarios:login'
 
-CSRF_TRUSTED_ORIGINS = ['https://app-odonto.fly.dev',
-                        ]
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT')
+
+#CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
+
+CSRF_COOKIE_SECURE= os.getenv('CSRF_COOKIE_SECURE')
+
+SESSION_COOKIE_SECURE= os.getenv('SESSION_COOKIE_SECURE')
